@@ -1,4 +1,4 @@
-use std::fmt;
+use std::{fmt, fs};
 
 #[derive(Clone, Copy)]
 pub enum RPS {
@@ -30,4 +30,13 @@ pub(crate) fn str_to_rps(src: &str) -> Option<RPS> {
 
         _ => None
     };
+}
+pub(crate) fn file_to_rps(filename: &str) -> Vec<(RPS,RPS)> {
+    return fs::read_to_string(filename)
+        .unwrap()
+        .lines()
+        .map(|line| line.split_whitespace().take(2).collect())
+        .map(|strings: Vec<&str>| (str_to_rps(strings[0]), str_to_rps(strings[1])))
+        .map(|(m1, m2)| (m1.unwrap(), m2.unwrap()))
+        .collect()
 }

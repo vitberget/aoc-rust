@@ -1,7 +1,7 @@
-use std::fs;
-use std::time::{Instant};
+use std::time::Instant;
+
 use crate::part1::score_p1;
-use crate::rps::{RPS, str_to_rps};
+use crate::rps::{file_to_rps, RPS};
 
 pub(crate) fn part2(name: &str, filename: &str) {
     let now = Instant::now();
@@ -12,12 +12,8 @@ pub(crate) fn part2(name: &str, filename: &str) {
 }
 
 fn day2_part2(filename: &str) -> i32 {
-    return fs::read_to_string(filename)
-        .unwrap()
-        .lines()
-        .map(|line| line.split_whitespace().take(2).collect())
-        .map(|strings: Vec<&str>| (str_to_rps(strings[0]), str_to_rps(strings[1])))
-        .map(|(m1, m2)| (m1.unwrap(), m2.unwrap()))
+    return file_to_rps(filename)
+        .into_iter()
         .map(|rps_moves| score_p2(rps_moves))
         .sum();
 }
@@ -42,5 +38,5 @@ fn score_p2((robot, human): (RPS, RPS)) -> i32 {
         }
     };
 
-    return score_p1((robot,new_human))
+    return score_p1((robot, new_human));
 }

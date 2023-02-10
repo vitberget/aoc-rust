@@ -1,5 +1,5 @@
-use part1::{part1};
-use part2::{part2};
+use part1::part1;
+use part2::part2;
 
 mod rps;
 mod part1;

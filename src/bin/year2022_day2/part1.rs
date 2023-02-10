@@ -1,7 +1,6 @@
-use std::fs;
-use std::time::{Instant};
-use crate::rps::{RPS, str_to_rps};
+use std::time::Instant;
 
+use crate::rps::{file_to_rps, RPS};
 
 pub(crate) fn part1(name: &str, filename: &str) {
     let now = Instant::now();
@@ -12,12 +11,8 @@ pub(crate) fn part1(name: &str, filename: &str) {
 }
 
 fn day2_part1(filename: &str) -> i32 {
-    return fs::read_to_string(filename)
-        .unwrap()
-        .lines()
-        .map(|line| line.split_whitespace().take(2).collect())
-        .map(|strings: Vec<&str>| (str_to_rps(strings[0]), str_to_rps(strings[1])))
-        .map(|(m1,m2)| (m1.unwrap(), m2.unwrap()))
+    return file_to_rps(filename)
+        .into_iter()
         .map(|rps_moves| score_p1(rps_moves))
         .sum();
 }
