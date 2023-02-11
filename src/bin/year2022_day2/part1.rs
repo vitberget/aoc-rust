@@ -1,4 +1,5 @@
 use std::time::Instant;
+use RPS::{PAPER, ROCK, SCISSOR};
 
 use crate::rps::{file_to_rps, RPS};
 
@@ -21,29 +22,42 @@ pub fn score_p1((robot, human): (RPS, RPS)) -> i32 {
     // (0 if you lost, 3 if the round was a draw, and 6 if you won).
 
     let winner_score = match human {
-        RPS::ROCK => match robot {
-            RPS::ROCK => 3,
-            RPS::PAPER => 0,
-            RPS::SCISSOR => 6
+        ROCK => match robot {
+            ROCK => 3,
+            PAPER => 0,
+            SCISSOR => 6
         },
-        RPS::PAPER => match robot {
-            RPS::ROCK => 6,
-            RPS::PAPER => 3,
-            RPS::SCISSOR => 0
+        PAPER => match robot {
+            ROCK => 6,
+            PAPER => 3,
+            SCISSOR => 0
         },
-        RPS::SCISSOR => match robot {
-            RPS::ROCK => 0,
-            RPS::PAPER => 6,
-            RPS::SCISSOR => 3
+        SCISSOR => match robot {
+            ROCK => 0,
+            PAPER => 6,
+            SCISSOR => 3
         }
     };
 
     // (1 for Rock, 2 for Paper, and 3 for Scissors)
     let move_score = match human {
-        RPS::ROCK => 1,
-        RPS::PAPER => 2,
-        RPS::SCISSOR => 3
+        ROCK => 1,
+        PAPER => 2,
+        SCISSOR => 3
     };
 
     return winner_score + move_score;
+}
+
+#[cfg(test)]
+mod tests {
+    // Note this useful idiom: importing names from outer (for mod tests) scope.
+    use super::*;
+
+    #[test]
+    fn test_scoring() {
+        assert_eq!(score_p1((ROCK, PAPER)), 8);
+        assert_eq!(score_p1((PAPER, ROCK)), 1);
+        assert_eq!(score_p1((SCISSOR, SCISSOR)), 6);
+    }
 }

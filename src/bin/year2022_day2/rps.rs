@@ -1,6 +1,6 @@
 use std::{fmt, fs};
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Debug, PartialEq)]
 pub enum RPS {
     ROCK,
     PAPER,
@@ -39,4 +39,16 @@ pub(crate) fn file_to_rps(filename: &str) -> Vec<(RPS,RPS)> {
         .map(|strings: Vec<&str>| (str_to_rps(strings[0]), str_to_rps(strings[1])))
         .map(|(m1, m2)| (m1.unwrap(), m2.unwrap()))
         .collect()
+}
+
+#[cfg(test)]
+mod tests {
+    // Note this useful idiom: importing names from outer (for mod tests) scope.
+    use super::*;
+
+    #[test]
+    fn test_str_to_rps() {
+        assert_eq!(str_to_rps("A"), Some(RPS::ROCK));
+        assert_eq!(str_to_rps("B"), Some(RPS::PAPER));
+    }
 }
