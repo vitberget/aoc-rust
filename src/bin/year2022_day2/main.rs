@@ -6,6 +6,7 @@ mod part1;
 mod part2;
 
 fn main() {
+    println!("Year 2022, day 2");
     part1("Example", "examples/year2022-day2.txt");
     part1("Puzzle", "puzzles/year2022-day2.txt");
 

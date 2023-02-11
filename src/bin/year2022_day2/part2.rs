@@ -44,7 +44,7 @@ fn score_p2((robot, human): (RPS, RPS)) -> i32 {
 
 #[cfg(test)]
 mod tests {
-    // Note this useful idiom: importing names from outer (for mod tests) scope.
+    use std::path::PathBuf;
     use super::*;
 
     #[test]
@@ -52,5 +52,12 @@ mod tests {
         assert_eq!(score_p2((ROCK, PAPER)), 4);
         assert_eq!(score_p2((PAPER, ROCK)), 1);
         assert_eq!(score_p2((SCISSOR, SCISSOR)), 7);
+    }
+
+    #[test]
+    fn test_running() {
+        let d = PathBuf::from(env!("CARGO_MANIFEST_DIR")).display().to_string();
+        assert_eq!(day2_part2((d.clone() + "/examples/year2022-day2.txt").as_str()), 12);
+        assert_eq!(day2_part2((d.clone() + "/puzzles/year2022-day2.txt").as_str()), 16862);
     }
 }
