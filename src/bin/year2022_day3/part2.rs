@@ -11,21 +11,20 @@ pub(crate) fn part2(filename: &str) {
 }
 
 fn solve_part2(mut lines: Lines) -> u32 {
-    let mut parts: Vec<char> = vec![];
+    let mut sum: u32 = 0;
 
     loop {
         let l1 = lines.next();
         let l2 = lines.next();
         let l3 = lines.next();
 
-        if l1.is_none() || l2.is_none() || l3.is_none() { break; }
+        if l1.is_none() || l2.is_none() || l3.is_none() {
+            return sum;
+        }
 
-        parts.push(common_letter(l1.unwrap(), l2.unwrap(), l3.unwrap()));
+        let letter = common_letter(l1.unwrap(), l2.unwrap(), l3.unwrap());
+        sum += score_letter(letter)
     }
-
-    return parts.iter()
-        .map(|letter| score_letter(*letter))
-        .sum();
 }
 
 fn common_letter(str1: &str, str2: &str, str3: &str) -> char {
@@ -33,10 +32,8 @@ fn common_letter(str1: &str, str2: &str, str3: &str) -> char {
     let hash2: HashSet<char> = str2.chars().collect();
     let hash3: HashSet<char> = str3.chars().collect();
 
-    let hash12: HashSet<&char> = hash1.intersection(&hash2).collect();
-
-    let left: Vec<&char> = hash3.iter()
-        .filter(|letter| hash12.contains(letter))
+    let left: Vec<&char> = hash1.iter()
+        .filter(|letter| hash2.contains(letter) && hash3.contains(letter))
         .collect();
 
     return *left[0];
