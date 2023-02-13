@@ -1,4 +1,5 @@
 use std::{fmt, fs};
+use RPS::{PAPER, ROCK, SCISSOR};
 
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum RPS {
@@ -11,22 +12,22 @@ impl fmt::Display for RPS {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{}",
                match self {
-                   RPS::ROCK => "rock",
-                   RPS::PAPER => "paper",
-                   RPS::SCISSOR => "scissor"
+                   ROCK => "rock",
+                   PAPER => "paper",
+                   SCISSOR => "scissor"
                })
     }
 }
 
 pub(crate) fn str_to_rps(src: &str) -> Option<RPS> {
     return match src {
-        "A" => Some(RPS::ROCK),
-        "B" => Some(RPS::PAPER),
-        "C" => Some(RPS::SCISSOR),
+        "A" => Some(ROCK),
+        "B" => Some(PAPER),
+        "C" => Some(SCISSOR),
 
-        "X" => Some(RPS::ROCK),
-        "Y" => Some(RPS::PAPER),
-        "Z" => Some(RPS::SCISSOR),
+        "X" => Some(ROCK),
+        "Y" => Some(PAPER),
+        "Z" => Some(SCISSOR),
 
         _ => None
     };
@@ -48,7 +49,7 @@ mod tests {
 
     #[test]
     fn test_str_to_rps() {
-        assert_eq!(str_to_rps("A"), Some(RPS::ROCK));
-        assert_eq!(str_to_rps("B"), Some(RPS::PAPER));
+        assert_eq!(str_to_rps("A"), Some(ROCK));
+        assert_eq!(str_to_rps("B"), Some(PAPER));
     }
 }
