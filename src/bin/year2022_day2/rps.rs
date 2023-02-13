@@ -38,7 +38,7 @@ pub(crate) fn file_to_rps(filename: &str) -> Vec<(RPS,RPS)> {
         .lines()
         .map(|line| line.split_whitespace().take(2).collect())
         .map(|strings: Vec<&str>| (str_to_rps(strings[0]), str_to_rps(strings[1])))
-        .map(|(m1, m2)| (m1.unwrap(), m2.unwrap()))
+        .map(|(opponent, player)| (opponent.unwrap(), player.unwrap()))
         .collect()
 }
 

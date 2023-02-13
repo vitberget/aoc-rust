@@ -19,27 +19,27 @@ fn day2_part2(filename: &str) -> i32 {
         .sum();
 }
 
-fn score_p2((robot, human): (RPS, RPS)) -> i32 {
+fn score_p2((opponent, player): (RPS, RPS)) -> i32 {
     // "Anyway, the second column says how the round needs to end:
     // X means you need to lose, -- rock
     // Y means you need to end the round in a draw, and --paper
     // Z means you need to win. Good luck!" --scissor
 
-    let new_human = match human {
-        ROCK => match robot {
+    let real_player_move = match player {
+        ROCK => match opponent {
             ROCK => SCISSOR,
             PAPER => ROCK,
             SCISSOR => PAPER
         },
-        PAPER => robot,
-        SCISSOR => match robot {
+        PAPER => opponent,
+        SCISSOR => match opponent {
             ROCK => PAPER,
             PAPER => SCISSOR,
             SCISSOR => ROCK
         }
     };
 
-    return score_p1((robot, new_human));
+    return score_p1((opponent, real_player_move));
 }
 
 #[cfg(test)]

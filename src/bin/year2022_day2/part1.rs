@@ -18,21 +18,21 @@ fn day2_part1(filename: &str) -> i32 {
         .sum();
 }
 
-pub fn score_p1((robot, human): (RPS, RPS)) -> i32 {
+pub fn score_p1((opponent, player): (RPS, RPS)) -> i32 {
     // (0 if you lost, 3 if the round was a draw, and 6 if you won).
 
-    let winner_score = match human {
-        ROCK => match robot {
+    let winner_score = match player {
+        ROCK => match opponent {
             ROCK => 3,
             PAPER => 0,
             SCISSOR => 6
         },
-        PAPER => match robot {
+        PAPER => match opponent {
             ROCK => 6,
             PAPER => 3,
             SCISSOR => 0
         },
-        SCISSOR => match robot {
+        SCISSOR => match opponent {
             ROCK => 0,
             PAPER => 6,
             SCISSOR => 3
@@ -40,7 +40,7 @@ pub fn score_p1((robot, human): (RPS, RPS)) -> i32 {
     };
 
     // (1 for Rock, 2 for Paper, and 3 for Scissors)
-    let move_score = match human {
+    let move_score = match player {
         ROCK => 1,
         PAPER => 2,
         SCISSOR => 3
