@@ -1,11 +1,14 @@
 use std::collections::HashSet;
 use std::fs;
 use std::str::Lines;
+use std::time::Instant;
 
 pub(crate) fn part1(filename: &str) {
+    let now = Instant::now();
     let score = solve_part1(fs::read_to_string(filename).unwrap().lines());
+    let dur = now.elapsed();
 
-    println!("Part 1 {} = {}", filename, score);
+    println!("Part 1 {} = {} in {:?}", filename, score, dur);
 }
 
 fn solve_part1(lines: Lines) -> u32 {
