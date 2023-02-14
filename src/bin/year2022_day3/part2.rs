@@ -1,11 +1,8 @@
 use std::collections::HashSet;
-use std::fs;
 use std::str::Lines;
 use std::time::Instant;
 
 use crate::part1::score_letter;
-
-
 
 pub(crate) fn part2() {
     let now = Instant::now();

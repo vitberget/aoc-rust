@@ -31,7 +31,7 @@ pub(crate) fn score_letter(c: char) -> u32 {
         (c as u32) - ('A' as u32) + 27
     } else {
         (c as u32) - ('a' as u32) + 1
-    };
+    }
 }
 
 #[cfg(test)]
