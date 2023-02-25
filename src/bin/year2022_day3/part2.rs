@@ -1,16 +1,16 @@
 use std::collections::HashSet;
-use std::fs;
 use std::str::Lines;
 use std::time::Instant;
 
 use crate::part1::score_letter;
 
-pub(crate) fn part2(filename: &str) {
+pub(crate) fn part2() {
     let now = Instant::now();
-    let score = solve_part2(fs::read_to_string(filename).unwrap().lines());
+    // Include file in binary
+    let score = solve_part2(include_str!("../../../puzzles/year2022-day3.txt").lines());
     let dur = now.elapsed();
 
-    println!("Part 2 {} = {} in {:?}", filename, score, dur);
+    println!("Part 2 year2022-day3.txt = {} in {:?}", score, dur);
 }
 
 fn solve_part2(mut lines: Lines) -> u32 {
