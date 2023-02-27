@@ -1,21 +1,15 @@
-use std::ops::{RangeInclusive};
+use std::ops::RangeInclusive;
 
 mod util;
 
 fn main() {
     let puzzle = include_str!("../../../puzzles/year2022_day4.txt");
 
+    let part1 = solve_part1(puzzle);
+    println!("part1 {part1}");
 
-    let s = solve_part2(puzzle);
-
-    println!("wee {s}")
-}
-
-fn solve_part2(example: &str) -> usize {
-    return example.lines()
-        .map(|line| util::line_to_ranges(line))
-        .filter(|(r1, r2)| overlaps_at_all(r1, r2))
-        .count();
+    let part2 = solve_part2(puzzle);
+    println!("part2 {part2}");
 }
 
 fn solve_part1(example: &str) -> usize {
@@ -25,16 +19,18 @@ fn solve_part1(example: &str) -> usize {
         .count();
 }
 
-fn overlaps_completely(p0: &RangeInclusive<i32>, p1: &RangeInclusive<i32>) -> bool {
-    if p0.contains(p1.start()) && p0.contains(p1.end()) {
-        return true;
-    }
-
-    if p1.contains(p0.start()) && p1.contains(p0.end()) {
-        return true;
-    }
-    return false;
+fn solve_part2(example: &str) -> usize {
+    return example.lines()
+        .map(|line| util::line_to_ranges(line))
+        .filter(|(r1, r2)| overlaps_at_all(r1, r2))
+        .count();
 }
+
+fn overlaps_completely(p0: &RangeInclusive<i32>, p1: &RangeInclusive<i32>) -> bool {
+    return p0.contains(p1.start()) && p0.contains(p1.end())
+        || p1.contains(p0.start()) && p1.contains(p0.end());
+}
+
 
 fn overlaps_at_all(p0: &RangeInclusive<i32>, p1: &RangeInclusive<i32>) -> bool {
     return p0.contains(p1.start()) ||

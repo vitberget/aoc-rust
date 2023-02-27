@@ -19,6 +19,16 @@ impl fmt::Display for RPS {
     }
 }
 
+pub(crate) fn file_to_rps(filename: &str) -> Vec<(RPS,RPS)> {
+    return fs::read_to_string(filename)
+        .unwrap()
+        .lines()
+        .map(|line| line.split_whitespace().take(2).collect())
+        .map(|strings: Vec<&str>| (str_to_rps(strings[0]), str_to_rps(strings[1])))
+        .map(|(opponent, player)| (opponent.unwrap(), player.unwrap()))
+        .collect()
+}
+
 pub(crate) fn str_to_rps(src: &str) -> Option<RPS> {
     return match src {
         "A" => Some(ROCK),
@@ -31,15 +41,6 @@ pub(crate) fn str_to_rps(src: &str) -> Option<RPS> {
 
         _ => None
     };
-}
-pub(crate) fn file_to_rps(filename: &str) -> Vec<(RPS,RPS)> {
-    return fs::read_to_string(filename)
-        .unwrap()
-        .lines()
-        .map(|line| line.split_whitespace().take(2).collect())
-        .map(|strings: Vec<&str>| (str_to_rps(strings[0]), str_to_rps(strings[1])))
-        .map(|(opponent, player)| (opponent.unwrap(), player.unwrap()))
-        .collect()
 }
 
 #[cfg(test)]

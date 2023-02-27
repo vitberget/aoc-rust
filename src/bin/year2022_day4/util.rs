@@ -1,4 +1,4 @@
-use std::ops::{Range, RangeInclusive};
+use std::ops::RangeInclusive;
 use std::str::FromStr;
 
 pub(crate) fn line_to_ranges(line: &str) -> (RangeInclusive<i32>, RangeInclusive<i32>) {
