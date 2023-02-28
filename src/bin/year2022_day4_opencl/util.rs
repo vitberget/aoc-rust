@@ -1,4 +1,3 @@
-use std::ops::RangeInclusive;
 use std::str::FromStr;
 
 pub(crate) fn text_to_vecs(text: &str) -> (Vec<i32>, Vec<i32>, Vec<i32>, Vec<i32>) {
