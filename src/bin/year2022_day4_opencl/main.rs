@@ -28,44 +28,53 @@ fn main() -> Result<()> {
     let kernel = Kernel::create(&program, KERNEL_NAME).expect("Kernel::create failed");
 
     let puzzle = include_str!("../../../puzzles/year2022_day4.txt");
-    let (r1_lower_data, r1_upper_data, r2_lower_data, r2_upper_data) = util::text_to_vecs(puzzle);
-    let input_size = r1_lower_data.len();
+    let (range_1_lower_data,
+        range_1_upper_data,
+        range_2_lower_data,
+        range_2_upper_data) = util::text_to_vecs(puzzle);
+    let input_size = range_1_lower_data.len();
 
-    let mut r1_lower_buffer = unsafe { Buffer::<cl_int>::create(&context, CL_MEM_READ_ONLY, input_size, ptr::null_mut())? };
-    let mut r1_upper_buffer = unsafe { Buffer::<cl_int>::create(&context, CL_MEM_READ_ONLY, input_size, ptr::null_mut())? };
-    let mut r2_lower_buffer = unsafe { Buffer::<cl_int>::create(&context, CL_MEM_READ_ONLY, input_size, ptr::null_mut())? };
-    let mut r2_upper_buffer = unsafe { Buffer::<cl_int>::create(&context, CL_MEM_READ_ONLY, input_size, ptr::null_mut())? };
-    let results_buffer = unsafe { Buffer::<cl_int>::create(&context, CL_MEM_WRITE_ONLY, input_size, ptr::null_mut())? };
+    let mut range_1_lower_buffer = unsafe { Buffer::<cl_int>::create(&context, CL_MEM_READ_ONLY, input_size, ptr::null_mut())? };
+    let mut range_1_upper_buffer = unsafe { Buffer::<cl_int>::create(&context, CL_MEM_READ_ONLY, input_size, ptr::null_mut())? };
+    let mut range_2_lower_buffer = unsafe { Buffer::<cl_int>::create(&context, CL_MEM_READ_ONLY, input_size, ptr::null_mut())? };
+    let mut range_2_upper_buffer = unsafe { Buffer::<cl_int>::create(&context, CL_MEM_READ_ONLY, input_size, ptr::null_mut())? };
+    let results_1_buffer = unsafe { Buffer::<cl_int>::create(&context, CL_MEM_WRITE_ONLY, input_size, ptr::null_mut())? };
+    let results_2_buffer = unsafe { Buffer::<cl_int>::create(&context, CL_MEM_WRITE_ONLY, input_size, ptr::null_mut())? };
 
-    let r1_lower_write_event = unsafe { queue.enqueue_write_buffer(&mut r1_lower_buffer, CL_NON_BLOCKING, 0, &r1_lower_data, &[])? };
-    let r1_upper_write_event = unsafe { queue.enqueue_write_buffer(&mut r1_upper_buffer, CL_NON_BLOCKING, 0, &r1_upper_data, &[])? };
-    let r2_lower_write_event = unsafe { queue.enqueue_write_buffer(&mut r2_lower_buffer, CL_NON_BLOCKING, 0, &r2_lower_data, &[])? };
-    let r2_upper_write_event = unsafe { queue.enqueue_write_buffer(&mut r2_upper_buffer, CL_NON_BLOCKING, 0, &r2_upper_data, &[])? };
+    let range_1_lower_write_event = unsafe { queue.enqueue_write_buffer(&mut range_1_lower_buffer, CL_NON_BLOCKING, 0, &range_1_lower_data, &[])? };
+    let range_1_upper_write_event = unsafe { queue.enqueue_write_buffer(&mut range_1_upper_buffer, CL_NON_BLOCKING, 0, &range_1_upper_data, &[])? };
+    let range_2_lower_write_event = unsafe { queue.enqueue_write_buffer(&mut range_2_lower_buffer, CL_NON_BLOCKING, 0, &range_2_lower_data, &[])? };
+    let range_2_upper_write_event = unsafe { queue.enqueue_write_buffer(&mut range_2_upper_buffer, CL_NON_BLOCKING, 0, &range_2_upper_data, &[])? };
 
     let kernel_event = unsafe {
         ExecuteKernel::new(&kernel)
-            .set_arg(&r1_lower_buffer)
-            .set_arg(&r1_upper_buffer)
-            .set_arg(&r2_lower_buffer)
-            .set_arg(&r2_upper_buffer)
-            .set_arg(&results_buffer)
+            .set_arg(&range_1_lower_buffer)
+            .set_arg(&range_1_upper_buffer)
+            .set_arg(&range_2_lower_buffer)
+            .set_arg(&range_2_upper_buffer)
+            .set_arg(&results_1_buffer)
+            .set_arg(&results_2_buffer)
             .set_global_work_size(input_size)
-            .set_wait_event(&r1_lower_write_event)
-            .set_wait_event(&r1_upper_write_event)
-            .set_wait_event(&r2_lower_write_event)
-            .set_wait_event(&r2_upper_write_event)
+            .set_wait_event(&range_1_lower_write_event)
+            .set_wait_event(&range_1_upper_write_event)
+            .set_wait_event(&range_2_lower_write_event)
+            .set_wait_event(&range_2_upper_write_event)
             .enqueue_nd_range(&queue)?
     };
 
     let mut events: Vec<cl_event> = Vec::default();
     events.push(kernel_event.get());
 
-    let mut results: Vec<cl_int> = vec![0; input_size];
-    let read_event = unsafe { queue.enqueue_read_buffer(&results_buffer, CL_NON_BLOCKING, 0, &mut results, &events)? };
-    read_event.wait()?;
+    let mut results_1: Vec<cl_int> = vec![0; input_size];
+    let mut results_2: Vec<cl_int> = vec![0; input_size];
+    let read_event_1 = unsafe { queue.enqueue_read_buffer(&results_1_buffer, CL_NON_BLOCKING, 0, &mut results_1, &events)? };
+    let read_event_2 = unsafe { queue.enqueue_read_buffer(&results_2_buffer, CL_NON_BLOCKING, 0, &mut results_2, &events)? };
+    read_event_1.wait()?;
+    read_event_2.wait()?;
 
-    let r: i32 = results.into_iter().sum();
-    println!("results front: {}", r);
+    let r1: i32 = results_1.into_iter().sum();
+    let r2: i32 = results_2.into_iter().sum();
+    println!("results part 1: {}, part 2: {}", r1, r2);
     // part1 444
     // part2 801
 
