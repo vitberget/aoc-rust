@@ -15,17 +15,9 @@ const PROGRAM_SOURCE: &str = include_str!("aoc.cl");
 const KERNEL_NAME: &str = "aoc_year2022_day4";
 
 fn main() -> Result<()> {
-    let device_id = *get_all_devices(CL_DEVICE_TYPE_GPU)?
-        .first()
-        .expect("no device found in platform");
-    let device = Device::new(device_id);
-
-    let context = Context::from_device(&device).expect("Context::from_device failed");
-    let queue = CommandQueue::create_default(&context, CL_QUEUE_PROFILING_ENABLE)
-        .expect("CommandQueue::create_default failed");
-
-    let program = Program::create_and_build_from_source(&context, PROGRAM_SOURCE, "").expect("Program::create_and_build_from_source failed");
-    let kernel = Kernel::create(&program, KERNEL_NAME).expect("Kernel::create failed");
+    let context = create_opencl_context();
+    let queue = create_opencl_queue(&context);
+    let kernel = create_opencl_kernel(&context);
 
     let puzzle = include_str!("../../../puzzles/year2022_day4.txt");
     let (range_1_lower_data,
@@ -38,6 +30,7 @@ fn main() -> Result<()> {
     let mut range_1_upper_buffer = unsafe { Buffer::<cl_int>::create(&context, CL_MEM_READ_ONLY, input_size, ptr::null_mut())? };
     let mut range_2_lower_buffer = unsafe { Buffer::<cl_int>::create(&context, CL_MEM_READ_ONLY, input_size, ptr::null_mut())? };
     let mut range_2_upper_buffer = unsafe { Buffer::<cl_int>::create(&context, CL_MEM_READ_ONLY, input_size, ptr::null_mut())? };
+
     let results_1_buffer = unsafe { Buffer::<cl_int>::create(&context, CL_MEM_WRITE_ONLY, input_size, ptr::null_mut())? };
     let results_2_buffer = unsafe { Buffer::<cl_int>::create(&context, CL_MEM_WRITE_ONLY, input_size, ptr::null_mut())? };
 
@@ -81,6 +74,27 @@ fn main() -> Result<()> {
     println!("kernel execution duration (ns): {}", kernel_duration(kernel_event));
 
     Ok(())
+}
+
+fn create_opencl_queue(context: &Context) -> CommandQueue {
+    return CommandQueue::create_default_with_properties(&context, CL_QUEUE_PROFILING_ENABLE, 0)
+        .expect("CommandQueue::create_default_with_properties failed")
+}
+
+fn create_opencl_kernel(context: &Context) -> Kernel {
+    let program = Program::create_and_build_from_source(&context, PROGRAM_SOURCE, "")
+        .expect("Program::create_and_build_from_source failed");
+    return Kernel::create(&program, KERNEL_NAME).expect("Kernel::create failed")
+}
+
+fn create_opencl_context() -> Context {
+    let device_id = *get_all_devices(CL_DEVICE_TYPE_GPU)
+        .expect("get_all_devices failed")
+        .first()
+        .expect("no device found in platform");
+    let device = Device::new(device_id);
+
+    return Context::from_device(&device).expect("Context::from_device failed")
 }
 
 fn kernel_duration(kernel_event: Event) -> cl_ulong {
