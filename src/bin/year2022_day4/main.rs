@@ -1,6 +1,8 @@
-use std::ops::RangeInclusive;
+use std::ops::RangeBounds;
+use trait_stuff::StartEnd;
 
 mod util;
+mod trait_stuff;
 
 fn main() {
     let puzzle = include_str!("../../../puzzles/year2022_day4.txt");
@@ -26,17 +28,16 @@ fn solve_part2(example: &str) -> usize {
         .count();
 }
 
-fn overlaps_completely(p0: &RangeInclusive<i32>, p1: &RangeInclusive<i32>) -> bool {
-    return p0.contains(p1.start()) && p0.contains(p1.end())
-        || p1.contains(p0.start()) && p1.contains(p0.end());
+fn overlaps_completely<T: RangeBounds<i32> + StartEnd<i32>>(rng_a: &T, rng_b: &T) -> bool {
+    return rng_a.contains(rng_b.the_start()) && rng_a.contains(rng_b.the_end())
+        || rng_b.contains(rng_a.the_start()) && rng_b.contains(rng_a.the_end());
 }
 
-
-fn overlaps_at_all(p0: &RangeInclusive<i32>, p1: &RangeInclusive<i32>) -> bool {
-    return p0.contains(p1.start()) ||
-        p0.contains(p1.end()) ||
-        p1.contains(p0.start());
-    // || p1.contains(&p0.end());
+fn overlaps_at_all<T: RangeBounds<i32> + StartEnd<i32>>(rng_a: &T, rng_b: &T) -> bool {
+    return rng_a.contains(rng_b.the_start()) ||
+        rng_a.contains(rng_b.the_end()) ||
+        rng_b.contains(rng_a.the_start());
+    // || p1.contains(&p0.end());p1
 }
 
 #[cfg(test)]
