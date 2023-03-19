@@ -1,5 +1,6 @@
 use std::collections::VecDeque;
-use crate::parse_text::{parse_text};
+use crate::parse_text::parse_text;
+use crate::util::stacks_to_answer;
 
 pub(crate) fn part2(text: &str) -> String {
     let (mut stacks, moves) = parse_text(text);
@@ -17,9 +18,7 @@ pub(crate) fn part2(text: &str) -> String {
         }
     }
 
-    return stacks.iter()
-        .map(|stack| stack.get(0).unwrap())
-        .collect();
+    return stacks_to_answer(&mut stacks);
 }
 
 #[cfg(test)]

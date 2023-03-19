@@ -2,7 +2,7 @@ use std::collections::{VecDeque};
 use regex::Regex;
 
 pub(crate) type Stack = VecDeque<char>;
-type Stacks = Vec<Stack>;
+pub(crate) type Stacks = Vec<Stack>;
 type Move = (u32, u32, u32);
 type Moves = Vec<Move>;
 
@@ -24,13 +24,9 @@ fn parse_moves(move_split: &str) -> Moves {
 }
 
 fn parse_stack(stack_text: &str) -> Stacks {
-    let mut lines = stack_text.lines().rev();
-
-    let num_stacks: usize = lines.next().unwrap().split_whitespace().last().unwrap().parse().unwrap();
-
+    let num_stacks = get_no_of_stacks(stack_text);
 
     let mut stacks: Stacks = vec![VecDeque::new(); num_stacks];
-    // let number_line = lines.last().unwrap().split_whitespace().count();
 
     for line in stack_text.lines() {
         let mut idx: usize = 0;
@@ -52,12 +48,24 @@ fn parse_stack(stack_text: &str) -> Stacks {
     return stacks;
 }
 
+fn get_no_of_stacks(stack_text: &str) -> usize {
+    return stack_text.lines()
+        .rev()
+        .next()
+        .unwrap()
+        .split_whitespace()
+        .last()
+        .unwrap()
+        .parse()
+        .unwrap();
+}
+
 fn parse_move(move_regex: &Regex, line: &str) -> (u32, u32, u32) {
     let pokemon = move_regex.captures(line).unwrap();
     let amount: u32 = pokemon["amount"].parse().unwrap();
     let from: u32 = pokemon["from"].parse().unwrap();
     let to: u32 = pokemon["to"].parse().unwrap();
-    (amount, from, to)
+    return (amount, from, to);
 }
 
 #[cfg(test)]
