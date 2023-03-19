@@ -30,7 +30,6 @@ fn main() -> Result<()> {
     let mut range_1_upper_buffer = unsafe { Buffer::<cl_int>::create(&context, CL_MEM_READ_ONLY, input_size, ptr::null_mut())? };
     let mut range_2_lower_buffer = unsafe { Buffer::<cl_int>::create(&context, CL_MEM_READ_ONLY, input_size, ptr::null_mut())? };
     let mut range_2_upper_buffer = unsafe { Buffer::<cl_int>::create(&context, CL_MEM_READ_ONLY, input_size, ptr::null_mut())? };
-
     let results_1_buffer = unsafe { Buffer::<cl_int>::create(&context, CL_MEM_WRITE_ONLY, input_size, ptr::null_mut())? };
     let results_2_buffer = unsafe { Buffer::<cl_int>::create(&context, CL_MEM_WRITE_ONLY, input_size, ptr::null_mut())? };
 

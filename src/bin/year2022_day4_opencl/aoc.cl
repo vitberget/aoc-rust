@@ -17,11 +17,16 @@ kernel void aoc_year2022_day4 (
     if(   r1l<=r2l && r1u>=r2u
        || r2l<=r1l && r2u>=r1u) {
         result_1[i] = 1;
+    } else {
+		    result_1[i] = 0;
     }
+
 
     if(   r2l >= r1l && r2l <= r1u
        || r2u >= r1l && r2u <= r1u
        || r1l >= r2l && r1l <= r2u) {
       result_2[i] = 1;
-    } 
+    } else {
+		  result_2[i] = 0;
+    }
 }
