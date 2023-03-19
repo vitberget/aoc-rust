@@ -1,6 +1,6 @@
 use crate::parse_text::{parse_text};
 
-fn part1(text: &str) -> String {
+pub(crate) fn part1(text: &str) -> String {
     let (mut stacks, moves) = parse_text(text);
 
     for (amount, from, to) in moves {

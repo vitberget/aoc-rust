@@ -1,0 +1,34 @@
+use std::collections::VecDeque;
+use crate::parse_text::{parse_text};
+
+pub(crate) fn part2(text: &str) -> String {
+    let (mut stacks, moves) = parse_text(text);
+
+    for (amount, from, to) in moves {
+        let from = (from - 1) as usize;
+        let to = (to - 1) as usize;
+
+        let i_like_to_move_it: VecDeque<char> = (0..amount)
+            .map(|_| stacks[from].pop_front().unwrap())
+            .collect();
+
+        for c in i_like_to_move_it.iter().rev() {
+            stacks[to].push_front(*c);
+        }
+    }
+
+    return stacks.iter()
+        .map(|stack| stack.get(0).unwrap())
+        .collect();
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn example() {
+        let res = part2(include_str!("../../../examples/year2022_day5.txt"));
+        assert_eq!(res, "MCD");
+    }
+}
