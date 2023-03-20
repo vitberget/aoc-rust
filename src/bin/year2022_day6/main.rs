@@ -1,5 +1,4 @@
 use std::fs::read_to_string;
-use std::collections::LinkedList;
 use std::env::args;
 
 fn main() {
@@ -10,9 +9,8 @@ fn main() {
     println!("part2 {}", day6(&text, 14));
 }
 
-
 fn day6(text: &str, different_letters: usize) -> usize {
-    let mut letters: Vec<char> = text.chars().collect();
+    let letters: Vec<char> = text.chars().collect();
     let mut answer: usize = 0;
 
     while answer + different_letters < letters.len() {
