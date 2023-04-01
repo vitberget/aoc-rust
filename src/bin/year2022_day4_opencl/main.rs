@@ -11,7 +11,8 @@ use opencl3::event::Event;
 
 mod util;
 
-const PROGRAM_SOURCE: &str = include_str!("aoc.cl");
+const PROGRAM_SOURCE: &str = include_str!("aoc.opencl");
+
 const KERNEL_NAME: &str = "aoc_year2022_day4";
 
 fn main() -> Result<()> {
