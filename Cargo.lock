@@ -15,9 +15,14 @@ dependencies = [
 name = "aoc-rust"
 version = "0.1.0"
 dependencies = [
+ "aoc_utils",
  "opencl3",
  "regex",
 ]
+
+[[package]]
+name = "aoc_utils"
+version = "0.1.0"
 
 [[package]]
 name = "cl3"

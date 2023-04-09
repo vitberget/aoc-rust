@@ -8,7 +8,4 @@ edition = "2021"
 [dependencies]
 opencl3 = "0.9.2"
 regex = "1.7.1"
-
-[lib]
-name = "aoc_utils"
-path = "src/aoc_utils/src/lib.rs"
+aoc_utils = { path = "libs/aoc_utils" }
