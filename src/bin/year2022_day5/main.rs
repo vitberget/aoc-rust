@@ -3,13 +3,15 @@ use std::fs;
 use part1::part1;
 use crate::part2::part2;
 
+use aoc_utils::get_aoc_filename;
+
 mod part1;
 mod part2;
 mod parse_text;
 mod util;
 
 fn main() {
-    let filename = get_filename();
+    let filename = get_aoc_filename(args(), 2022, 5);
     let file_content = fs::read_to_string(filename).unwrap();
 
     // part 1 TLFGBZHCN
@@ -17,15 +19,5 @@ fn main() {
 
     // part 2 QRQFHFWCL
     println!("part2: {}", part2(&file_content));
-}
-
-/// Returns first argument as filename, or a default
-fn get_filename() -> String {
-    let filename = "puzzles/year2022_day5.txt".to_string();
-    return args()
-        .into_iter()
-        .nth(1)
-        .or_else(|| Some(filename))
-        .unwrap();
 }
 

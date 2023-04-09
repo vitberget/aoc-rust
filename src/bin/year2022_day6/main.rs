@@ -1,8 +1,9 @@
 use std::fs::read_to_string;
 use std::env::args;
+use aoc_utils::get_aoc_filename;
 
 fn main() {
-    let filename = get_filename();
+    let filename = get_aoc_filename(args(), 2022, 6);
     let text = read_to_string(filename).unwrap();
 
     println!("part1 {}", day6(&text, 4));
@@ -30,16 +31,6 @@ fn is_this_it(list: &[char]) -> bool {
     }
 
     return true;
-}
-
-/// Returns first argument as filename, or a default
-fn get_filename() -> String {
-    let filename = "puzzles/year2022_day6.txt".to_string();
-    return args()
-        .into_iter()
-        .nth(1)
-        .or_else(|| Some(filename))
-        .unwrap();
 }
 
 #[cfg(test)]
