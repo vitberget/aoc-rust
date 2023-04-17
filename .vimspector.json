@@ -1,11 +1,11 @@
 {
   "configurations": {
-    "year2022_day2": {
+    "aoc": {
       "adapter": "CodeLLDB",
       "filetypes": [ "rust" ],
       "configuration": {
         "request": "launch",
-        "program": "${workspaceRoot}/target/debug/year2022_day2"
+        "program": "${workspaceRoot}/target/debug/year${year}_day${day}"
       }
     }
   }
