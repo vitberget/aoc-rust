@@ -19,19 +19,21 @@ fn main() {
 }
 
 fn part_1(dir_sizes: &Vec<u32>) -> u32 {
-    let limit: u32 = 100_000;
+    const LIMIT: u32 = 100_000;
+
     return dir_sizes
         .iter()
-        .filter(|&n| n < &limit)
+        .filter(|&n| n < &LIMIT)
         .sum();
 }
 
 fn part_2(dir_sizes: &Vec<u32>) -> u32 {
+    const MAX_SIZE: u32 = 70_000_000 - 30_000_000;
+
     let total_size: &u32 = dir_sizes.iter().max().unwrap();
-    let max_size: u32 = 70_000_000 - 30_000_000;
 
     return *dir_sizes.iter()
-        .filter(|&n| total_size - n <= max_size)
+        .filter(|&n| total_size - n <= MAX_SIZE)
         .min()
         .unwrap();
 }

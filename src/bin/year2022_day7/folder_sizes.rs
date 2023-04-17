@@ -14,13 +14,19 @@ pub(crate) fn folder_sizes(text: &str) -> Vec<u32> {
         }
     }
 
-    let mut result: Vec<u32> = vec![];
-    dir_sizes.values().for_each(|n| result.insert(0, *n));
-    return result;
+    return dir_sizes
+        .values()
+        .map(|n| *n)
+        .collect();
 }
 
 fn cd(cwd: &mut LinkedList<String>, line: &str) {
-    let dir = line.split_whitespace().nth(2).unwrap().to_string();
+    let dir = line
+        .split_whitespace()
+        .nth(2)
+        .unwrap()
+        .to_string();
+
     if dir == ".." {
         cwd.pop_front();
     } else {
@@ -29,7 +35,12 @@ fn cd(cwd: &mut LinkedList<String>, line: &str) {
 }
 
 fn file(dir_sizes: &mut HashMap<LinkedList<String>, u32>, cwd: &LinkedList<String>, line: &str) {
-    let size: u32 = line.split_whitespace().nth(0).unwrap().parse().unwrap();
+    let size: u32 = line
+        .split_whitespace()
+        .nth(0)
+        .unwrap()
+        .parse()
+        .unwrap();
 
     let mut key = cwd.clone();
     while !key.is_empty() {
