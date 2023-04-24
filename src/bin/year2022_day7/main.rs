@@ -23,7 +23,7 @@ fn part_1(dir_sizes: &Vec<u32>) -> u32 {
 
     return dir_sizes
         .iter()
-        .filter(|&n| n < &LIMIT)
+        .filter(|&size_of_dir| size_of_dir < &LIMIT)
         .sum();
 }
 
@@ -33,7 +33,7 @@ fn part_2(dir_sizes: &Vec<u32>) -> u32 {
     let total_size: &u32 = dir_sizes.iter().max().unwrap();
 
     return *dir_sizes.iter()
-        .filter(|&n| total_size - n <= MAX_SIZE)
+        .filter(|&size_of_dir| total_size - size_of_dir <= MAX_SIZE)
         .min()
         .unwrap();
 }
