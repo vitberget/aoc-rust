@@ -18,7 +18,7 @@ fn main() {
     println!("part 2 {p2}");
 }
 
-fn part_1(dir_sizes: &Vec<u32>) -> u32 {
+fn part_1(dir_sizes: &[u32]) -> u32 {
     const LIMIT: u32 = 100_000;
 
     return dir_sizes
@@ -27,7 +27,7 @@ fn part_1(dir_sizes: &Vec<u32>) -> u32 {
         .sum();
 }
 
-fn part_2(dir_sizes: &Vec<u32>) -> u32 {
+fn part_2(dir_sizes: &[u32]) -> u32 {
     const MAX_SIZE: u32 = 70_000_000 - 30_000_000;
 
     let total_size: &u32 = dir_sizes.iter().max().unwrap();

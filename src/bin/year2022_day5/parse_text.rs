@@ -12,7 +12,7 @@ pub(crate) fn parse_text(text: &str) -> (Stacks, Moves) {
     let stacks = parse_stack(splitted.next().unwrap());
     let moves = parse_moves(splitted.next().unwrap());
 
-    return (stacks, moves);
+    (stacks, moves)
 }
 
 fn parse_moves(move_split: &str) -> Moves {
@@ -40,18 +40,16 @@ fn parse_stack(stack_text: &str) -> Stacks {
                 stacks[idx].push_back(c);
             }
 
-            idx = idx + 1;
+            idx += 1;
             line = rest;
         }
     }
 
-    return stacks;
+    stacks
 }
 
 fn get_no_of_stacks(stack_text: &str) -> usize {
-    return stack_text.lines()
-        .rev()
-        .next()
+    return stack_text.lines().next_back()
         .unwrap()
         .split_whitespace()
         .last()
@@ -65,7 +63,7 @@ fn parse_move(move_regex: &Regex, line: &str) -> (u32, u32, u32) {
     let amount: u32 = pokemon["amount"].parse().unwrap();
     let from: u32 = pokemon["from"].parse().unwrap();
     let to: u32 = pokemon["to"].parse().unwrap();
-    return (amount, from, to);
+    (amount, from, to)
 }
 
 #[cfg(test)]

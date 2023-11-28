@@ -6,6 +6,6 @@ pub(crate) trait StartEnd<T: ?Sized> {
 }
 
 impl<T> StartEnd<T> for RangeInclusive<T> {
-    fn the_start(&self) -> &T { &self.start() }
-    fn the_end(&self) -> &T { &self.end() }
+    fn the_start(&self) -> &T { self.start() }
+    fn the_end(&self) -> &T { self.end() }
 }

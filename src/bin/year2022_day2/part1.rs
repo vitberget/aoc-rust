@@ -1,7 +1,7 @@
 use std::time::Instant;
-use RPS::{PAPER, ROCK, SCISSOR};
+use RockPaperScissor::{Paper, Rock, Scissor};
 
-use crate::rps::{file_to_rps, RPS};
+use crate::rps::{file_to_rps, RockPaperScissor};
 
 pub(crate) fn part1(name: &str, filename: &str) {
     let now = Instant::now();
@@ -12,41 +12,41 @@ pub(crate) fn part1(name: &str, filename: &str) {
 }
 
 fn day2_part1(filename: &str) -> i32 {
-    return file_to_rps(filename)
+    file_to_rps(filename)
         .into_iter()
-        .map(|rps_moves| score_p1(rps_moves))
-        .sum();
+        .map(score_p1)
+        .sum()
 }
 
-pub fn score_p1((opponent, player): (RPS, RPS)) -> i32 {
+pub fn score_p1((opponent, player): (RockPaperScissor, RockPaperScissor)) -> i32 {
     // (0 if you lost, 3 if the round was a draw, and 6 if you won).
 
     let winner_score = match player {
-        ROCK => match opponent {
-            ROCK => 3,
-            PAPER => 0,
-            SCISSOR => 6
+        Rock => match opponent {
+            Rock => 3,
+            Paper => 0,
+            Scissor => 6
         },
-        PAPER => match opponent {
-            ROCK => 6,
-            PAPER => 3,
-            SCISSOR => 0
+        Paper => match opponent {
+            Rock => 6,
+            Paper => 3,
+            Scissor => 0
         },
-        SCISSOR => match opponent {
-            ROCK => 0,
-            PAPER => 6,
-            SCISSOR => 3
+        Scissor => match opponent {
+            Rock => 0,
+            Paper => 6,
+            Scissor => 3
         }
     };
 
     // (1 for Rock, 2 for Paper, and 3 for Scissors)
     let move_score = match player {
-        ROCK => 1,
-        PAPER => 2,
-        SCISSOR => 3
+        Rock => 1,
+        Paper => 2,
+        Scissor => 3
     };
 
-    return winner_score + move_score;
+    winner_score + move_score
 }
 
 #[cfg(test)]
@@ -56,9 +56,9 @@ mod tests {
 
     #[test]
     fn test_scoring() {
-        assert_eq!(score_p1((ROCK, PAPER)), 8);
-        assert_eq!(score_p1((PAPER, ROCK)), 1);
-        assert_eq!(score_p1((SCISSOR, SCISSOR)), 6);
+        assert_eq!(score_p1((Rock, Paper)), 8);
+        assert_eq!(score_p1((Paper, Rock)), 1);
+        assert_eq!(score_p1((Scissor, Scissor)), 6);
     }
 
     #[test]

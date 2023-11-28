@@ -55,9 +55,7 @@ fn main() -> Result<()> {
             .enqueue_nd_range(&queue)?
     };
 
-    let mut events: Vec<cl_event> = Vec::default();
-    events.push(kernel_event.get());
-
+    let events: Vec<cl_event> = vec![kernel_event.get()];
     let mut results_1: Vec<cl_int> = vec![0; input_size];
     let mut results_2: Vec<cl_int> = vec![0; input_size];
     let read_event_1 = unsafe { queue.enqueue_read_buffer(&results_1_buffer, CL_NON_BLOCKING, 0, &mut results_1, &events)? };
@@ -77,14 +75,14 @@ fn main() -> Result<()> {
 }
 
 fn create_opencl_queue(context: &Context) -> CommandQueue {
-    return CommandQueue::create_default_with_properties(&context, CL_QUEUE_PROFILING_ENABLE, 0)
+    CommandQueue::create_default_with_properties(context, CL_QUEUE_PROFILING_ENABLE, 0)
         .expect("CommandQueue::create_default_with_properties failed")
 }
 
 fn create_opencl_kernel(context: &Context) -> Kernel {
-    let program = Program::create_and_build_from_source(&context, PROGRAM_SOURCE, "")
+    let program = Program::create_and_build_from_source(context, PROGRAM_SOURCE, "")
         .expect("Program::create_and_build_from_source failed");
-    return Kernel::create(&program, KERNEL_NAME).expect("Kernel::create failed")
+    Kernel::create(&program, KERNEL_NAME).expect("Kernel::create failed")
 }
 
 fn create_opencl_context() -> Context {
@@ -94,12 +92,12 @@ fn create_opencl_context() -> Context {
         .expect("no device found in platform");
     let device = Device::new(device_id);
 
-    return Context::from_device(&device).expect("Context::from_device failed")
+    Context::from_device(&device).expect("Context::from_device failed")
 }
 
 fn kernel_duration(kernel_event: Event) -> cl_ulong {
     let start_time = kernel_event.profiling_command_start().unwrap();
     let end_time = kernel_event.profiling_command_end().unwrap();
-    let duration = end_time - start_time;
-    return duration;
+    
+    end_time - start_time
 }

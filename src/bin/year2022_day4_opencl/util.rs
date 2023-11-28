@@ -18,5 +18,5 @@ pub(crate) fn text_to_vecs(text: &str) -> (Vec<i32>, Vec<i32>, Vec<i32>, Vec<i32
         r2_upper.push(parts[3]);
     }
 
-    return (r1_lower, r1_upper, r2_lower, r2_upper);
+    (r1_lower, r1_upper, r2_lower, r2_upper)
 }

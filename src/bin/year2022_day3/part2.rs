@@ -39,7 +39,7 @@ fn common_letter(str1: &str, str2: &str, str3: &str) -> char {
         .filter(|letter| hash2.contains(letter) && hash3.contains(letter))
         .collect();
 
-    return *left[0];
+    *left[0]
 }
 
 #[cfg(test)]

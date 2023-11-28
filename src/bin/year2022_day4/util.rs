@@ -3,10 +3,10 @@ use std::str::FromStr;
 
 pub(crate) fn line_to_ranges(line: &str) -> (RangeInclusive<i32>, RangeInclusive<i32>) {
     let a_list : Vec<RangeInclusive<i32>>= line.split(',')
-        .map(|l| line_minus(l))
+        .map(line_minus)
         .collect();
 
-    return (a_list[0].clone(), a_list[1].clone())
+    (a_list[0].clone(), a_list[1].clone())
 }
 
 fn line_minus(line: &str) -> RangeInclusive<i32> {
@@ -14,7 +14,7 @@ fn line_minus(line: &str) -> RangeInclusive<i32> {
         .map(|v| <i32 as FromStr>::from_str(v).expect("i hate input"))
         .collect();
 
-    return wee[0]..=wee[1];
+    wee[0]..=wee[1]
 }
 
 #[cfg(test)]

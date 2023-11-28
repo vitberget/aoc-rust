@@ -6,7 +6,7 @@ pub(crate) fn folder_sizes(text: &str) -> Vec<u32> {
 
     for line in text.lines() {
         match line {
-            line if line == "$ ls" => {}
+            "$ ls" => {}
             line if line.starts_with("dir ") => {}
 
             line if line.starts_with("$ cd ") => cd(&mut cwd, line),
@@ -15,8 +15,7 @@ pub(crate) fn folder_sizes(text: &str) -> Vec<u32> {
     }
 
     return dir_sizes
-        .values()
-        .map(|n| *n)
+        .values().copied()
         .collect();
 }
 
@@ -36,8 +35,7 @@ fn cd(cwd: &mut LinkedList<String>, line: &str) {
 
 fn file(dir_sizes: &mut HashMap<LinkedList<String>, u32>, cwd: &LinkedList<String>, line: &str) {
     let size: u32 = line
-        .split_whitespace()
-        .nth(0)
+        .split_whitespace().next()
         .unwrap()
         .parse()
         .unwrap();

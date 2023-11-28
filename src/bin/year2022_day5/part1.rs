@@ -14,7 +14,7 @@ pub(crate) fn part1(text: &str) -> String {
         }
     }
 
-    return stacks_to_answer(&mut stacks);
+    stacks_to_answer(&mut stacks)
 }
 
 #[cfg(test)]

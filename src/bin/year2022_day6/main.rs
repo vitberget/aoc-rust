@@ -14,11 +14,11 @@ fn day6(text: &str, different_letters: usize) -> usize {
     let letters: Vec<char> = text.chars().collect();
     let mut answer: usize = 0;
 
-    while answer + different_letters < letters.len() && !is_this_it(&letters[answer..(answer + different_letters) as usize]) {
+    while answer + different_letters < letters.len() && !is_this_it(&letters[answer..(answer + different_letters)]) {
         answer += 1;
     }
 
-    return answer + different_letters;
+    answer + different_letters
 }
 
 fn is_this_it(list: &[char]) -> bool {
@@ -30,7 +30,7 @@ fn is_this_it(list: &[char]) -> bool {
         }
     }
 
-    return true;
+    true
 }
 
 #[cfg(test)]

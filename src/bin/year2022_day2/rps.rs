@@ -1,25 +1,25 @@
 use std::{fmt, fs};
-use RPS::{PAPER, ROCK, SCISSOR};
+use RockPaperScissor::{Paper, Rock, Scissor};
 
 #[derive(Clone, Copy, Debug, PartialEq)]
-pub enum RPS {
-    ROCK,
-    PAPER,
-    SCISSOR,
+pub enum RockPaperScissor {
+    Rock,
+    Paper,
+    Scissor,
 }
 
-impl fmt::Display for RPS {
+impl fmt::Display for RockPaperScissor {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{}",
                match self {
-                   ROCK => "rock",
-                   PAPER => "paper",
-                   SCISSOR => "scissor"
+                   Rock => "rock",
+                   Paper => "paper",
+                   Scissor => "scissor"
                })
     }
 }
 
-pub(crate) fn file_to_rps(filename: &str) -> Vec<(RPS,RPS)> {
+pub(crate) fn file_to_rps(filename: &str) -> Vec<(RockPaperScissor,RockPaperScissor)> {
     return fs::read_to_string(filename)
         .unwrap()
         .lines()
@@ -29,18 +29,18 @@ pub(crate) fn file_to_rps(filename: &str) -> Vec<(RPS,RPS)> {
         .collect()
 }
 
-pub(crate) fn str_to_rps(src: &str) -> Option<RPS> {
-    return match src {
-        "A" => Some(ROCK),
-        "B" => Some(PAPER),
-        "C" => Some(SCISSOR),
+pub(crate) fn str_to_rps(src: &str) -> Option<RockPaperScissor> {
+    match src {
+        "A" => Some(Rock),
+        "B" => Some(Paper),
+        "C" => Some(Scissor),
 
-        "X" => Some(ROCK),
-        "Y" => Some(PAPER),
-        "Z" => Some(SCISSOR),
+        "X" => Some(Rock),
+        "Y" => Some(Paper),
+        "Z" => Some(Scissor),
 
         _ => None
-    };
+    }
 }
 
 #[cfg(test)]
@@ -49,7 +49,7 @@ mod tests {
 
     #[test]
     fn test_str_to_rps() {
-        assert_eq!(str_to_rps("A"), Some(ROCK));
-        assert_eq!(str_to_rps("B"), Some(PAPER));
+        assert_eq!(str_to_rps("A"), Some(Rock));
+        assert_eq!(str_to_rps("B"), Some(Paper));
     }
 }

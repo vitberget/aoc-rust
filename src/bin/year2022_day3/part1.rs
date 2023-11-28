@@ -12,9 +12,9 @@ pub(crate) fn part1(filename: &str) {
 }
 
 fn solve_part1(lines: Lines) -> u32 {
-    return lines.map(|line| common_letter(line))
-        .map(|c| score_letter(c))
-        .sum();
+    lines.map(common_letter)
+        .map(score_letter)
+        .sum()
 }
 
 fn common_letter(line: &str) -> char {
@@ -27,7 +27,7 @@ fn common_letter(line: &str) -> char {
 }
 
 pub(crate) fn score_letter(c: char) -> u32 {
-    return if c.is_uppercase() {
+    if c.is_uppercase() {
         (c as u32) - ('A' as u32) + 27
     } else {
         (c as u32) - ('a' as u32) + 1

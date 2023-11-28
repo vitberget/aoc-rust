@@ -16,14 +16,14 @@ fn main() {
 
 fn solve_part1(example: &str) -> usize {
     return example.lines()
-        .map(|line| util::line_to_ranges(line))
+        .map(util::line_to_ranges)
         .filter(|(r1, r2)| overlaps_completely(r1, r2))
         .count();
 }
 
 fn solve_part2(example: &str) -> usize {
     return example.lines()
-        .map(|line| util::line_to_ranges(line))
+        .map(util::line_to_ranges)
         .filter(|(r1, r2)| overlaps_at_all(r1, r2))
         .count();
 }
@@ -46,8 +46,8 @@ mod tests {
 
     #[test]
     fn overlap_yes() {
-        assert_eq!(overlaps_completely(&(2..=8), &(3..=7)), true);
-        assert_eq!(overlaps_completely(&(2..=4), &(6..=8)), false);
+        assert!(overlaps_completely(&(2..=8), &(3..=7)));
+        assert!(!overlaps_completely(&(2..=4), &(6..=8)));
     }
 
     #[test]
