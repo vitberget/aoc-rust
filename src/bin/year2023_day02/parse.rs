@@ -13,7 +13,7 @@ pub fn parse_to_games(text: String) -> anyhow::Result<Vec<Game>> {
 }
 
 fn line_to_game(line: &str) -> anyhow::Result<Game> {
-    let mut parts = line.split(":");
+    let mut parts = line.split(':');
     let id: u32 = line_to_id(parts.next())?;
     let picks: Vec<Pick> = line_to_picks(parts.next())?;
 
@@ -23,7 +23,7 @@ fn line_to_game(line: &str) -> anyhow::Result<Game> {
 fn line_to_id(line: Option<&str>) -> anyhow::Result<u32> {
     match line {
         Some(text) => {
-            match text.split(" ").last() {
+            match text.split(' ').last() {
                 Some(num_text) => Ok(num_text.trim().parse()?),
                 None => bail!("Missing id part")
             }
@@ -36,7 +36,7 @@ fn line_to_picks(line: Option<&str>) -> anyhow::Result<Vec<Pick>> {
     match line {
         Some(text) => {
             let mut result: Vec<Pick> = vec![];
-            for pick_text in text.split(";") { result.push(text_to_pick(pick_text)?); }
+            for pick_text in text.split(';') { result.push(text_to_pick(pick_text)?); }
             Ok(result)
         }
         None => bail!("Missing picks")
@@ -48,8 +48,8 @@ fn text_to_pick(text: &str) -> anyhow::Result<Pick> {
     let mut green: u32 = 0;
     let mut blue: u32 = 0;
 
-    for big_part in text.split(",") {
-        let mut parts = big_part.trim().split(" ");
+    for big_part in text.split(',') {
+        let mut parts = big_part.trim().split(' ');
         if let Some(amount) = parts.next() {
             let amount: u32 = amount.trim().parse()?;
 

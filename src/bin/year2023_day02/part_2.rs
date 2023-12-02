@@ -10,7 +10,7 @@ pub fn part_2(games: &[Game]) -> anyhow::Result<u32> {
 }
 
 fn biggest_pick(picks: &[Pick] ) -> Pick  {
-    picks.into_iter().fold(
+    picks.iter().fold(
         Pick { red: 0, green: 0, blue: 0 }, |pick_a, pick_b| Pick { 
         red: max(pick_a.red, pick_b.red), 
         green: max(pick_a.green, pick_b.green), 

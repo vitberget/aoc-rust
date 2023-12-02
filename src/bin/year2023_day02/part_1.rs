@@ -2,7 +2,7 @@ use crate::structs::Game;
 
 pub fn part_1(games: &[Game]) -> anyhow::Result<u32> {
     Ok(games.iter()
-       .filter(|game| within_parameters(game))
+       .filter(within_parameters)
        .map(|game| game.id)
        .sum())
 }
