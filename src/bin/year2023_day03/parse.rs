@@ -4,7 +4,7 @@ use anyhow::Context;
 
 use crate::structs::{Schematic, Position, Number};
 
-pub fn parse_text_to_schematic(text: String) -> anyhow::Result<Schematic> {
+pub fn parse_text_to_schematic(text: &str) -> anyhow::Result<Schematic> {
     let mut symbols: HashSet<Position> = HashSet::new();
     let mut numbers: Vec<Number> = vec![];
     let mut current_number: Option<Number> = None;
@@ -31,11 +31,9 @@ pub fn parse_text_to_schematic(text: String) -> anyhow::Result<Schematic> {
                             number.positions.insert(position);
                         }
                         None => {
-                            let mut positions: HashSet<Position> = HashSet::new();
-                            positions.insert(position);
                             current_number = Some(Number {
                                 number: value,
-                                positions
+                                positions: HashSet::from([position])
                             })
                         }
                     };
@@ -45,7 +43,7 @@ pub fn parse_text_to_schematic(text: String) -> anyhow::Result<Schematic> {
                         numbers.push(number);
                         current_number = None;
                     };
-                    symbols.insert(Position::new(x ,y)); }
+                    symbols.insert(Position::new(x, y)); }
             }
         }
     }
@@ -63,7 +61,7 @@ mod tests {
 
     #[test]
     fn test_parse() {
-       let text: String = "467..114..
+       let text = "467..114..
 ...*......
 ..35..633.
 ......#...
@@ -72,8 +70,8 @@ mod tests {
 ..592.....
 ......755.
 ...$.*....
-.664.598..".to_string();
-       let _schematic = parse_text_to_schematic(text);
+.664.598..";
+       let _schematic = parse_text_to_schematic(&text);
        // println!("Schematic: {:?}", schematic);
     }
 }

@@ -16,11 +16,10 @@ pub fn main() -> anyhow::Result<()> {
     let filename = get_aoc_filename(args(), 2023, 3);
     let text = read_to_string(filename)?;
 
-    let schematic = parse_text_to_schematic(text)?;
+    let schematic = parse_text_to_schematic(&text)?;
 
     let p1 = solve_part_1(&schematic)?;
     println!("Part 1: {p1}");
-
 
     let p2 = solve_part_2(&schematic)?;
     println!("Part 2: {p2}");
