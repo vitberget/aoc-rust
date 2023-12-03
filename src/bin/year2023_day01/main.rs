@@ -16,9 +16,9 @@ pub fn main() -> anyhow::Result<()> {
     Ok(())
 }
 
-fn solve(text: &String, part_fn: fn(&str) -> Vec<u8>) -> anyhow::Result<u32>  {
+fn solve(text: &str, part_fn: fn(&str) -> Vec<u8>) -> anyhow::Result<u32>  {
     Ok(text.lines()
-       .map(|line| part_fn(line))
+       .map(part_fn)
        .map(do_the_numbers)
        .sum())
 }
@@ -45,16 +45,16 @@ fn line_part_2(line: &str) -> Vec<u8> {
 
     while !line.is_empty() {
         match line {
-            line if line.starts_with("0") => result.push(0),
-            line if line.starts_with("1") => result.push(1),
-            line if line.starts_with("2") => result.push(2),
-            line if line.starts_with("3") => result.push(3),
-            line if line.starts_with("4") => result.push(4),
-            line if line.starts_with("5") => result.push(5),
-            line if line.starts_with("6") => result.push(6),
-            line if line.starts_with("7") => result.push(7),
-            line if line.starts_with("8") => result.push(8),
-            line if line.starts_with("9") => result.push(9),
+            line if line.starts_with('0') => result.push(0),
+            line if line.starts_with('1') => result.push(1),
+            line if line.starts_with('2') => result.push(2),
+            line if line.starts_with('3') => result.push(3),
+            line if line.starts_with('4') => result.push(4),
+            line if line.starts_with('5') => result.push(5),
+            line if line.starts_with('6') => result.push(6),
+            line if line.starts_with('7') => result.push(7),
+            line if line.starts_with('8') => result.push(8),
+            line if line.starts_with('9') => result.push(9),
            
             line if line.starts_with("zero") => result.push(0),
             line if line.starts_with("one") => result.push(1),
