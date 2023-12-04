@@ -10,3 +10,4 @@ opencl3 = "0.9.4"
 regex = "1.10.2"
 aoc_utils = { path = "libs/aoc_utils" }
 anyhow = "1.0.75"
+lazy_static = "1.4.0"
