@@ -14,10 +14,7 @@ pub fn solve_part_1(schematic: &Schematic) -> anyhow::Result<u32> {
 }
 
 pub fn is_number_adjecent_to_symbol(number: &&Number, symbols: &HashSet<Position>) -> bool {
-    for position in &number.positions {
-        if symbols.contains(position) {
-            return true;
-        }
-    }
-    false
+    number.positions.iter()
+        .find(|position| symbols.contains(position))
+        .is_some()
 }

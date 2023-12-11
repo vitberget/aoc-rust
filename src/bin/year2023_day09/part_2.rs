@@ -26,12 +26,9 @@ fn solve_line(one_line: &Vec<i128>) -> i128 {
 }
 
 fn all_zeroes(numbers: &[i128]) -> bool {
-    for n in numbers {
-        if n != &0 {
-            return false;
-        }
-    }
-    true
+    numbers.iter()
+        .find(|n| n != &&0)
+        .is_none()
 }
 
 #[cfg(test)]

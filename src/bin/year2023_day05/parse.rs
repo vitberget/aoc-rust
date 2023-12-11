@@ -50,7 +50,9 @@ pub fn parse(text: &str) -> anyhow::Result<Almenac> {
 
 
 fn parse_seeds(line: &str) -> Vec<i64> {
-    line[6..].split_whitespace().map(|word| word.parse().unwrap_or(0)).collect()
+    line[6..].split_whitespace()
+        .map(|word| word.parse().unwrap_or(0))
+        .collect()
 }
 
 fn line_to_translation(line: &str) -> Translation {

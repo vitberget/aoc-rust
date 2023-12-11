@@ -1,4 +1,4 @@
-use anyhow::bail;
+use anyhow::{bail, Context};
 
 use crate::structs::{Game, Pick};
 
@@ -21,26 +21,20 @@ fn line_to_game(line: &str) -> anyhow::Result<Game> {
 }
 
 fn line_to_id(line: Option<&str>) -> anyhow::Result<u32> {
-    match line {
-        Some(text) => {
-            match text.split(' ').last() {
-                Some(num_text) => Ok(num_text.trim().parse()?),
-                None => bail!("Missing id part")
-            }
-        }
-        None => bail!("Missing id part")
-    }
+    Ok(line.context("Missing id part")?
+        .split(' ')
+        .last().context("Missing id part")?
+        .trim()
+        .parse()?)
 }
 
 fn line_to_picks(line: Option<&str>) -> anyhow::Result<Vec<Pick>> {
-    match line {
-        Some(text) => {
-            let mut result: Vec<Pick> = vec![];
-            for pick_text in text.split(';') { result.push(text_to_pick(pick_text)?); }
-            Ok(result)
-        }
-        None => bail!("Missing picks")
+    let text = line.context("Missing picks")?;
+    let mut result: Vec<Pick> = vec![];
+    for pick_text in text.split(';') { 
+        result.push(text_to_pick(pick_text)?); 
     }
+    Ok(result)
 }
 
 fn text_to_pick(text: &str) -> anyhow::Result<Pick> {
@@ -55,10 +49,10 @@ fn text_to_pick(text: &str) -> anyhow::Result<Pick> {
 
             if let Some(color) = parts.next() {
                 match color.trim() {
-                   "red" => red = amount, 
-                   "green" => green = amount, 
-                   "blue" => blue = amount, 
-                   col => bail!("unknown color {col}")
+                    "red" => red = amount, 
+                    "green" => green = amount, 
+                    "blue" => blue = amount, 
+                    col => bail!("unknown color {col}")
                 }
             }
         }

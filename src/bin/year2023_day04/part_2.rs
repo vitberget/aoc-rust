@@ -32,7 +32,9 @@ pub fn solve_part_2(cards: &[Card]) -> anyhow::Result<u32> {
 }
 
 fn card_to_card_with_scratchpads(card: &Card) -> CardWithScratchcards {
-    let scratchcards: Vec<u32> = (0..card.get_intersecting()).map(|n| n+1+card.id).collect();
+    let scratchcards: Vec<u32> = (0..card.get_intersecting())
+        .map(|n| n+1+card.id)
+        .collect();
     CardWithScratchcards { id: card.id, scratchcards }
 }
 

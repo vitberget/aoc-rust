@@ -4,10 +4,7 @@ use crate::structs::{Plays, Card, Play, Hand};
 
 pub fn solve_part_2(plays: &Plays) -> anyhow::Result<u64> {
     Ok(plays.iter()
-       .map(|play| {
-           let hand = play_to_hand(play);
-           (play, hand)
-       })
+       .map(|play| (play, play_to_hand(play)))
        .sorted_by(|(play_a, hand_a), (play_b, hand_b)| compare(play_a, hand_a, play_b, hand_b))
        .enumerate()
        .map(|(index, (play,_))| (index as u64+1u64) * play.bet)
@@ -38,6 +35,7 @@ fn play_to_hand(play: &Play) -> Hand {
     let counts = play.cards.iter()
         .filter(|card| card != && Card::Jack)
         .counts();
+
     let counts: Vec<&usize> = counts.values()
         .sorted_by(|a,b| b.cmp(a))
         .collect();

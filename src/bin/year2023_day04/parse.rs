@@ -14,7 +14,10 @@ pub fn parse(text: &str) -> anyhow::Result<Vec<Card>> {
 
 fn line_to_card(line: &str) -> anyhow::Result<Card> {
     let parts: Vec<&str> = line.split(&[':','|'][..]).collect();
-    let id_str: &str = parts.first().expect("Missing id").split(' ').collect::<Vec<&str>>().last().expect("Missing id");
+    let id_str: &str = parts.first().expect("Missing id")
+        .split(' ')
+        .collect::<Vec<&str>>()
+        .last().expect("Missing id");
     let id: u32 = id_str.parse()?;
 
     let winning: HashSet<u8> = line_to_numbers(parts.get(1).expect("Missing winning"))?;
@@ -26,10 +29,8 @@ fn line_to_card(line: &str) -> anyhow::Result<Card> {
 fn line_to_numbers(line: &str) -> anyhow::Result<HashSet<u8>>  {
     let mut numbers: HashSet<u8> = HashSet::new();
 
-    for part in line.split(' ') {
-        if !part.is_empty() {
-            numbers.insert(part.parse()?);
-        }
+    for part in line.split(' ').filter(|part| !part.is_empty()) {
+        numbers.insert(part.parse()?);
     }
 
     Ok(numbers)

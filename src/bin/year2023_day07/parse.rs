@@ -40,14 +40,14 @@ impl TryFrom<char> for Card {
             'Q' => Ok(Self::Queen),
             'J' => Ok(Self::Jack),
             'T' => Ok(Self::C10),
-            '2' => Ok(Self::C2),
-            '3' => Ok(Self::C3),
-            '4' => Ok(Self::C4),
-            '5' => Ok(Self::C5),
-            '6' => Ok(Self::C6),
-            '7' => Ok(Self::C7),
-            '8' => Ok(Self::C8),
             '9' => Ok(Self::C9),
+            '8' => Ok(Self::C8),
+            '7' => Ok(Self::C7),
+            '6' => Ok(Self::C6),
+            '5' => Ok(Self::C5),
+            '4' => Ok(Self::C4),
+            '3' => Ok(Self::C3),
+            '2' => Ok(Self::C2),
 
             c => bail!("Not a card {}", c)
         }
