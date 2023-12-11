@@ -23,9 +23,7 @@ fn solve_line(one_line: &Vec<i128>) -> i128 {
 }
 
 fn all_zeroes(numbers: &[i128]) -> bool {
-    numbers.iter()
-        .find(|n| n != &&0)
-        .is_none()
+    !numbers.iter().any(|n| n != &0)
 }
 
 #[cfg(test)]

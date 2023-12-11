@@ -8,10 +8,8 @@ pub fn part_1(games: &[Game]) -> anyhow::Result<u32> {
 }
 
 fn within_parameters(game: &&Game) -> bool {
-    game.picks.iter()
-        .find(|pick| pick.red > 12 
+    !game.picks.iter()
+        .any(|pick| pick.red > 12 
               || pick.green > 13 
-              || pick.blue > 14
-             )
-        .is_none()
+              || pick.blue > 14)
 }

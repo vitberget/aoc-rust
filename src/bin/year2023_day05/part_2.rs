@@ -63,7 +63,7 @@ mod tests {
     #[tokio::test(flavor = "multi_thread")]
     async fn example_part_2() {
         let text = include_str!("example.txt");
-        let almenac = parse(&text).unwrap();
+        let almenac = parse(text).unwrap();
         let result = solve_part_2(&almenac).await.unwrap();
         assert_eq!(result, 46);
     }

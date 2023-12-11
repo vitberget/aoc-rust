@@ -71,7 +71,7 @@ mod tests {
 ......755.
 ...$.*....
 .664.598..";
-       let _schematic = parse_text_to_schematic(&text);
+       let _schematic = parse_text_to_schematic(text);
        // println!("Schematic: {:?}", schematic);
     }
 }

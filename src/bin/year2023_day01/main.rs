@@ -85,7 +85,7 @@ mod tests {
 pqr3stu8vwx
 a1b2c3d4e5f
 treb7uchet";
-       assert_eq!(solve(&example.to_string(), line_part_1).unwrap(), 142);
+       assert_eq!(solve(example, line_part_1).unwrap(), 142);
     }
 
     #[test]
