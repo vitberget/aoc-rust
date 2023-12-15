@@ -1,6 +1,6 @@
 pub fn solve_part_1(text: &str) -> anyhow::Result<u32> {
-    Ok(text.split(",")
-           .map(|part| hash(part))
+    Ok(text.split(',')
+           .map(hash)
            .map(|byte| byte as u32)
            .sum())
 }

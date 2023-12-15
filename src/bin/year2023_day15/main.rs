@@ -13,10 +13,10 @@ pub fn main() -> anyhow::Result<()> {
     let text = read_to_string(filename)?;
     let text = text.trim();
 
-    let p1 = solve_part_1(&text)?;
+    let p1 = solve_part_1(text)?;
     println!("Part 1: {p1}");
 
-    let p2 = solve_part_2(&text)?;
+    let p2 = solve_part_2(text)?;
     println!("Part 2: {p2}");
 
     Ok(())
