@@ -8,6 +8,8 @@ pub fn main() -> anyhow::Result<()> {
     let p1 = solve_part_1(PUZZLE, true)?;
     println!("part1: {p1}");
 
+    let p2 = solve_part_2(PUZZLE)?;
+    println!("part2: {p2}");
 
     Ok(())
 }
@@ -41,10 +43,47 @@ fn solve_part_1(numbers: &[u32], do_1202: bool) -> anyhow::Result<u32> {
     bail!("Ran outside of instructions")
 }
 
+fn solve_part_2(numbers: &[u32]) -> anyhow::Result<u32> {
+    for verb in 0..100 {
+        for noun in 0..100 {
+            if part_2(numbers, noun, verb).unwrap_or(0) == 19690720 {
+                return Ok(noun * 100 + verb); 
+            }
+        }
+    }
+    bail!("failed to find solution")
+}
+
+fn part_2(numbers: &[u32], noun: u32, verb: u32) -> anyhow::Result<u32> {
+    let mut copy: Box<[u32]> = numbers.to_vec().into_boxed_slice();
+    let numbers: &mut [u32] = copy.as_mut();
+
+    numbers[1] = noun;
+    numbers[2] = verb;
+
+    for idx in (0..numbers.len()).step_by(4) {
+        let opcode = numbers[idx];
+        match opcode {
+            99 => return Ok(numbers[0]),
+            1 => {
+                let sum = numbers[numbers[idx + 1] as usize] + numbers[numbers[idx + 2] as usize];
+                numbers[numbers[idx + 3] as usize] = sum;
+            }
+            2 => {
+                let product = numbers[numbers[idx + 1] as usize] * numbers[numbers[idx + 2] as usize];
+                numbers[numbers[idx + 3] as usize] = product;
+            }
+            other => bail!("Unknown opcode {other}")
+        }
+    }
+
+    bail!("Ran outside of instructions")
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
-    
+
     const EXAMPLE: &[u32] = &[1,9,10,3,2,3,11,0,99,30,40,50];
     const EXAMPLE_2: &[u32] = &[1,1,1,4,99,5,6,0,99];
 
