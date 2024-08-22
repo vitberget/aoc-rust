@@ -65,7 +65,7 @@ fn solve_part_2(text: &str) -> anyhow::Result<()> {
 
             match pixel {
                 Some(BLACK) => print!(" "),
-                Some(WHITE) => print!("X"),
+                Some(WHITE) => print!("█"),
                 n => bail!("Not a pixel {:?}", n)
             }
         }
@@ -74,4 +74,3 @@ fn solve_part_2(text: &str) -> anyhow::Result<()> {
 
     Ok(())
 }
-
