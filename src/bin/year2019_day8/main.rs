@@ -22,15 +22,11 @@ const WIDTH: usize = 25;
 const HEIGHT: usize = 6;
 const PIXEL_COUNT: usize = WIDTH * HEIGHT;
 
-const CHAR_0: u8 = 0x30;
-const CHAR_1: u8 = 0x31;
-const CHAR_2: u8 = 0x32;
-
-const BLACK: u8 = 0x30;
-const WHITE: u8 = 0x31;
-const TRANSPARENT: u8 = 0x32;
-
 fn solve_part_1(text: &str) -> anyhow::Result<usize> {
+    const CHAR_0: u8 = 0x30;
+    const CHAR_1: u8 = 0x31;
+    const CHAR_2: u8 = 0x32;
+
     let (_, zero_layer) = text.as_bytes()
         .chunks(PIXEL_COUNT)
         .map(|chunk| (count_items(chunk, CHAR_0), chunk))
@@ -51,6 +47,10 @@ fn count_items(chunk: &[u8], needle: u8) -> usize {
 }
 
 fn solve_part_2(text: &str) -> anyhow::Result<()> {
+    const BLACK: u8 = 0x30;
+    const WHITE: u8 = 0x31;
+    const TRANSPARENT: u8 = 0x32;
+
     let layers = text.as_bytes()
         .chunks(PIXEL_COUNT)
         .collect_vec();
