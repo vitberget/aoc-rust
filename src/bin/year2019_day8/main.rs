@@ -1,8 +1,9 @@
-use std::{env::args, fs::read_to_string};
+use std::env::args;
+use std::fs::read_to_string;
 
 use anyhow::bail;
 use aoc_utils::get_aoc_filename;
-use itertools::{izip, Itertools};
+use itertools::Itertools;
 
 pub fn main() -> anyhow::Result<()> {
     let filename = get_aoc_filename(args(), 2019, 8);
@@ -12,22 +13,35 @@ pub fn main() -> anyhow::Result<()> {
     let p1 = solve_part_1(text)?;
     println!("Part 1: {p1}");
 
+    println!();
     solve_part_2(text)?;
     Ok(())
 }
 
 const WIDTH: usize = 25;
 const HEIGHT: usize = 6;
+const PIXEL_COUNT: usize = WIDTH * HEIGHT;
+
+const CHAR_0: u8 = 0x30;
+const CHAR_1: u8 = 0x31;
+const CHAR_2: u8 = 0x32;
+
+const BLACK: u8 = 0x30;
+const WHITE: u8 = 0x31;
+const TRANSPARENT: u8 = 0x32;
 
 fn solve_part_1(text: &str) -> anyhow::Result<usize> {
     let (_, zero_layer) = text.as_bytes()
-        .chunks(WIDTH * HEIGHT)
-        .map(|chunk| (count_items(chunk, 0x30), chunk))
+        .chunks(PIXEL_COUNT)
+        .map(|chunk| (count_items(chunk, CHAR_0), chunk))
         .sorted_by(|(c1,_),(c2,_)| c1.cmp(c2))
         .next()
         .unwrap();
 
-    Ok(count_items(zero_layer, 0x31) * count_items(zero_layer, 0x32))
+    let ones = count_items(zero_layer, CHAR_1);
+    let twos = count_items(zero_layer, CHAR_2);
+
+    Ok(ones * twos)
 }
 
 fn count_items(chunk: &[u8], needle: u8) -> usize {
@@ -36,23 +50,24 @@ fn count_items(chunk: &[u8], needle: u8) -> usize {
         .count()
 }
 
-
 fn solve_part_2(text: &str) -> anyhow::Result<()> {
     let layers = text.as_bytes()
-        .chunks(WIDTH*HEIGHT)
+        .chunks(PIXEL_COUNT)
         .collect_vec();
 
     for y in 0..HEIGHT {
         for x in 0..WIDTH {
-            let idx = x + y * WIDTH;
+            let pixel_index = x + y * WIDTH;
 
-            match layers.iter()
-                .map(|pixels| pixels[idx])
-                .find(|pixel| *pixel != 0x32) {
-                    Some(0x30) => print!(" "),
-                    Some(0x31) => print!("X"),
-                    n => bail!("Not a pixel {:?}", n)
-                }
+            let pixel = layers.iter()
+                .map(|pixels| pixels[pixel_index])
+                .find(|pixel| *pixel != TRANSPARENT);
+
+            match pixel {
+                Some(BLACK) => print!(" "),
+                Some(WHITE) => print!("X"),
+                n => bail!("Not a pixel {:?}", n)
+            }
         }
         println!();
     }
