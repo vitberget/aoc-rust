@@ -33,16 +33,17 @@ fn part_2(text: &str) -> u32 {
             match capture.get(0).unwrap().as_str() {
                 "do()" => (true, acc.1),
                 "don't()" => (false, acc.1),
-                _ => {
-                   if acc.0 {
-                       let part:u32 = 
-                           capture.get(2).unwrap().as_str().parse::<u32>().unwrap() 
-                           * capture.get(3).unwrap().as_str().parse::<u32>().unwrap();
-                        (acc.0, acc.1 + part)
-                   } else {
-                       acc
-                   }
-                }
+                _ => parse_mul(acc, capture)
             }
         }).1
+}
+
+fn parse_mul(acc: (bool, u32), capture: regex::Captures) -> (bool, u32) {
+    if acc.0 {
+        let n1:u32 = capture.get(2).unwrap().as_str().parse().unwrap();
+        let n2:u32 = capture.get(3).unwrap().as_str().parse().unwrap();
+        (acc.0, acc.1 + n1 * n2)
+    } else {
+        acc
+    }
 }
