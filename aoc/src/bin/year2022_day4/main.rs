@@ -5,7 +5,7 @@ mod util;
 mod trait_stuff;
 
 fn main() {
-    let puzzle = include_str!("../../../puzzles/year2022_day4.txt");
+    let puzzle = include_str!("../../../../puzzles/year2022_day4.txt");
 
     let part1 = solve_part1(puzzle);
     println!("part1 {part1}");

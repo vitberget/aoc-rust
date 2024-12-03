@@ -7,7 +7,7 @@ use crate::part1::score_letter;
 pub(crate) fn part2() {
     let now = Instant::now();
     // Include file in binary
-    let score = solve_part2(include_str!("../../../puzzles/year2022-day3.txt").lines());
+    let score = solve_part2(include_str!("../../../../puzzles/year2022-day3.txt").lines());
     let dur = now.elapsed();
 
     println!("Part 2 year2022-day3.txt = {} in {:?}", score, dur);

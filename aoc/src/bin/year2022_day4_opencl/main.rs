@@ -20,7 +20,7 @@ fn main() -> Result<()> {
     let queue = create_opencl_queue(&context);
     let kernel = create_opencl_kernel(&context);
 
-    let puzzle = include_str!("../../../puzzles/year2022_day4.txt");
+    let puzzle = include_str!("../../../../puzzles/year2022_day4.txt");
     let (range_1_lower_data,
         range_1_upper_data,
         range_2_lower_data,
