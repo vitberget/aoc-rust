@@ -1,7 +1,6 @@
 use std::cmp::min;
 use std::collections::{VecDeque, HashMap};
 use std::fmt::Display;
-use std::usize;
 
 use anyhow::Context;
 
@@ -49,7 +48,7 @@ pub async fn solve_part_1(heat_map: &HeatMap) -> anyhow::Result<u32> {
     let mut iteration = 0;
 
     while all_paths_not_at(&paths, target_position) {
-        println!("");
+        println!();
         println!("Iteration {iteration}");
         println!("Paths:");
         paths.iter().for_each(|path| {println!("  {path}");});
@@ -76,12 +75,12 @@ pub async fn solve_part_1(heat_map: &HeatMap) -> anyhow::Result<u32> {
             let mut current_heat: u32 = 0;
             for (position, heat) in &path.path {
                 current_heat += heat;
-                if heats.get(&position).unwrap() < &current_heat {
+                if heats.get(position).unwrap() < &current_heat {
                     return false;
                 }
             }
 
-            return true
+            true
         });
 
     }

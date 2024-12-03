@@ -1,7 +1,4 @@
-use std::env::args;
-use std::fs::read_to_string;
 
-use aoc_utils::get_aoc_filename;
 use parse::text_to_heat_map;
 
 use crate::part_1::solve_part_1;
@@ -16,7 +13,7 @@ pub async fn main() -> anyhow::Result<()> {
     // let text = read_to_string(filename)?;
     let text = include_str!("example.txt");
 
-    let heat_map = text_to_heat_map(&text)?;
+    let heat_map = text_to_heat_map(text)?;
 
     let p1 = solve_part_1(&heat_map).await?;
     println!("Part 1: {p1}");

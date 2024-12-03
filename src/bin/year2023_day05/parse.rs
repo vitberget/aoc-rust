@@ -16,7 +16,7 @@ pub fn parse(text: &str) -> anyhow::Result<Almenac> {
 
     for line in text.lines() {
         match line {
-            line if line.is_empty() => {}
+            "" => {}
             line if line.starts_with("seeds: ") => {seeds = parse_seeds(line);}
             line if line.contains("-to-") => {paragraph += 1;}
             line => {
@@ -31,7 +31,6 @@ pub fn parse(text: &str) -> anyhow::Result<Almenac> {
                     7 => { humidity_to_location.push(line_to_translation(line)); }
                     _ => { bail!("to many paragraphs") }
                 }
-
             }
         }
     }

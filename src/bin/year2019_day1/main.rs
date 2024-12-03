@@ -22,7 +22,7 @@ pub fn main() -> anyhow::Result<()> {
 fn solve_part_1(text: &str) -> anyhow::Result<u32> {
     let result = text.lines()
         .map(|line| line.parse::<u32>().unwrap_or(0))
-        .map(|mass| get_required_fuel_part1(mass))
+        .map(get_required_fuel_part1)
         .sum();
     Ok(result)
 }
@@ -30,7 +30,7 @@ fn solve_part_1(text: &str) -> anyhow::Result<u32> {
 fn solve_part_2(text: &str) -> anyhow::Result<u32> {
     let result = text.lines()
         .map(|line| line.parse::<u32>().unwrap_or(0))
-        .map(|mass| get_required_fuel_part2(mass))
+        .map(get_required_fuel_part2)
         .sum();
     Ok(result)
 }
