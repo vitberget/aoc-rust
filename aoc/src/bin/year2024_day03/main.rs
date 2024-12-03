@@ -29,13 +29,12 @@ fn part_1(text: &str) -> u32 {
 fn part_2(text: &str) -> u32 {
     Regex::new(r"(mul\((\d+),(\d+)\))|(do\(\))|don't\(\)").unwrap()
         .captures_iter(text)
-        .fold((true, 0_u32),|acc, capture| {
+        .fold((true, 0_u32), |acc, capture| 
             match capture.get(0).unwrap().as_str() {
                 "do()" => (true, acc.1),
                 "don't()" => (false, acc.1),
                 _ => parse_mul(acc, capture)
-            }
-        }).1
+            }).1
 }
 
 fn parse_mul(acc: (bool, u32), capture: regex::Captures) -> (bool, u32) {
