@@ -8,7 +8,7 @@ pub fn blink_many_times(text: &str, times: usize) -> usize {
         arragment = blink(&arragment);
     }
 
-   arragment.len()
+    arragment.len()
 }
 
 fn blink(arragment: &[u64]) -> Vec<u64> {
@@ -20,7 +20,7 @@ fn blink(arragment: &[u64]) -> Vec<u64> {
         } else {
             let digits_in_number = number.ilog10() + 1;
             if (digits_in_number) % 2 == 0 {
-                let divider = 10_u64.pow(digits_in_number/2);
+                let divider = 10_u64.pow(digits_in_number / 2);
                 result.push(number / divider);
                 result.push(number % divider);
             } else  {

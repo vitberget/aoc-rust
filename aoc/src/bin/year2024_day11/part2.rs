@@ -23,15 +23,24 @@ fn blink(arragment: &HashMap<u64, usize>) -> HashMap<u64, usize> {
 
     for (number, size) in arragment {
         if *number == 0 {
-            result.entry(1).and_modify(|s| *s += size).or_insert(*size);
+            result.entry(1)
+                .and_modify(|s| *s += size)
+                .or_insert(*size);
         } else {
             let digits_in_number = number.ilog10() + 1;
+
             if (digits_in_number) % 2 == 0 {
-                let divider = 10_u64.pow(digits_in_number/2);
-                result.entry(number / divider).and_modify(|s| *s += size).or_insert(*size);
-                result.entry(number % divider).and_modify(|s| *s += size).or_insert(*size);
+                let divider = 10_u64.pow(digits_in_number / 2);
+                result.entry(number / divider)
+                    .and_modify(|s| *s += size)
+                    .or_insert(*size);
+                result.entry(number % divider)
+                    .and_modify(|s| *s += size)
+                    .or_insert(*size);
             } else  {
-                result.entry(number * 2024).and_modify(|s| *s += size).or_insert(*size);
+                result.entry(number * 2024)
+                    .and_modify(|s| *s += size)
+                    .or_insert(*size);
             }
         }
     }
