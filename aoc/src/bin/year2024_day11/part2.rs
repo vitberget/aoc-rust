@@ -68,8 +68,6 @@ mod tests {
         assert_eq!(blink_many_times("125 17", 25), 55312);
     }
 
-    // fn vec_to_hashmap( /)
-
     #[test]
     fn blinks() {
         let blink_0 = vec_to_hashmap(vec![125, 17]);
