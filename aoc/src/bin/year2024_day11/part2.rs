@@ -1,12 +1,7 @@
 use std::collections::HashMap;
 
 pub fn blink_many_times(text: &str, times: usize) -> usize {
-    let numbers: Vec<u64> = text.trim()
-        .split(" ")
-        .flat_map(|word| word.parse::<u64>())
-        .collect();
-
-    let mut arragment = vec_to_hashmap(numbers);
+    let mut arragment = text_to_arragment(text);
 
     for _ in 0..times {
         arragment = blink(&arragment);
@@ -20,24 +15,16 @@ fn blink(arragment: &HashMap<u64, usize>) -> HashMap<u64, usize> {
 
     for (number, size) in arragment {
         if *number == 0 {
-            result.entry(1)
-                .and_modify(|s| *s += size)
-                .or_insert(*size);
+            add_number(&mut result, 1, size);
         } else {
             let digits_in_number = number.ilog10() + 1;
 
-            if (digits_in_number) % 2 == 0 {
+            if digits_in_number % 2 == 0 {
                 let divider = 10_u64.pow(digits_in_number / 2);
-                result.entry(number / divider)
-                    .and_modify(|s| *s += size)
-                    .or_insert(*size);
-                result.entry(number % divider)
-                    .and_modify(|s| *s += size)
-                    .or_insert(*size);
+                add_number(&mut result, number / divider, size);
+                add_number(&mut result, number % divider, size);
             } else  {
-                result.entry(number * 2024)
-                    .and_modify(|s| *s += size)
-                    .or_insert(*size);
+                add_number(&mut result, number * 2024, size);
             }
         }
     }
@@ -45,17 +32,32 @@ fn blink(arragment: &HashMap<u64, usize>) -> HashMap<u64, usize> {
     result
 }
 
+fn text_to_arragment(text: &str) -> HashMap<u64, usize> {
+    let numbers: Vec<u64> = text.trim()
+        .split(" ")
+        .flat_map(|word| word.parse::<u64>())
+        .collect();
+    
+    vec_to_hashmap(numbers)
+}
+
 fn vec_to_hashmap(numbers: Vec<u64>) -> HashMap<u64, usize> {
-    let mut result: HashMap<u64, usize> = HashMap::new();
+    let mut arragment: HashMap<u64, usize> = HashMap::new();
 
     for number in numbers {
-        match result.get_mut(&number) {
+        match arragment.get_mut(&number) {
             Some(count) => { *count += 1; },
-            None => { result.insert(number, 1); }
+            None => { arragment.insert(number, 1); }
         }
     }
 
-    result
+    arragment
+}
+
+fn add_number(arragment: &mut HashMap<u64, usize>, number: u64, count: &usize) {
+    arragment.entry(number)
+        .and_modify(|s| *s += count)
+        .or_insert(*count);
 }
 
 #[cfg(test)]

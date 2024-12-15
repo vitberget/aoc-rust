@@ -1,8 +1,5 @@
 pub fn blink_many_times(text: &str, times: usize) -> usize {
-    let mut arragment: Vec<u64> = text.trim()
-        .split(" ")
-        .flat_map(|word| word.parse::<u64>())
-        .collect();
+    let mut arragment = text_to_arragment(text);
 
     for _ in 0..times {
         arragment = blink(&arragment);
@@ -19,7 +16,7 @@ fn blink(arragment: &[u64]) -> Vec<u64> {
             result.push(1);
         } else {
             let digits_in_number = number.ilog10() + 1;
-            if (digits_in_number) % 2 == 0 {
+            if digits_in_number % 2 == 0 {
                 let divider = 10_u64.pow(digits_in_number / 2);
                 result.push(number / divider);
                 result.push(number % divider);
@@ -30,6 +27,13 @@ fn blink(arragment: &[u64]) -> Vec<u64> {
     }
 
     result
+}
+
+fn text_to_arragment(text: &str) -> Vec<u64> {
+    text.trim()
+        .split(" ")
+        .flat_map(|word| word.parse::<u64>())
+        .collect()
 }
 
 #[cfg(test)]
