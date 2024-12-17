@@ -1,4 +1,4 @@
-use std::collections::{VecDeque};
+use std::collections::VecDeque;
 use regex::Regex;
 
 pub(crate) type Stack = VecDeque<char>;
@@ -72,7 +72,7 @@ mod tests {
 
     #[test]
     fn parse_example() {
-        let (stacks, moves) = parse_text(include_str!("../../../examples/year2022_day5.txt"));
+        let (stacks, moves) = parse_text(include_str!("../../../../examples/year2022_day5.txt"));
         assert_eq!(stacks, vec![
             Stack::from(['N', 'Z']),
             Stack::from(['D', 'C', 'M']),

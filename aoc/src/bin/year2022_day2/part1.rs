@@ -64,7 +64,8 @@ mod tests {
     #[test]
     fn test_running() {
         let d = PathBuf::from(env!("CARGO_MANIFEST_DIR")).display().to_string();
-        assert_eq!(day2_part1((d.clone() + "/examples/year2022-day2.txt").as_str()), 15);
-        assert_eq!(day2_part1((d.clone() + "/puzzles/year2022-day2.txt").as_str()), 11475);
+        println!("d is {d}");
+        assert_eq!(day2_part1((d.clone() + "/../examples/year2022-day2.txt").as_str()), 15);
+        assert_eq!(day2_part1((d.clone() + "/../puzzles/year2022-day2.txt").as_str()), 11475);
     }
 }

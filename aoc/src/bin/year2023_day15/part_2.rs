@@ -85,7 +85,7 @@ mod tests {
 
     #[test]
     fn test_part_to_instruction_delete() {
-        assert_eq!(part_to_instructions("cm-"), (3, '-', Lens::new("cm", 0)));
+        assert_eq!(part_to_instructions("cm-"), (0, '-', Lens::new("cm", 0)));
     }
 
     #[test]

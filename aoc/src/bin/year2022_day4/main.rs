@@ -52,7 +52,7 @@ mod tests {
 
     #[test]
     fn test1() {
-        let example = include_str!("../../../examples/year2022_day4.txt");
+        let example = include_str!("../../../../examples/year2022_day4.txt");
         assert_eq!(solve_part1(example), 2)
     }
 }

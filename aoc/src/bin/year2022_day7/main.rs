@@ -44,14 +44,14 @@ mod tests {
 
     #[test]
     fn part_1_ex() {
-        let sizes = folder_sizes(include_str!("../../../examples/year2022_day7.txt"));
+        let sizes = folder_sizes(include_str!("../../../../examples/year2022_day7.txt"));
         let p1 = part_1(&sizes);
         assert_eq!(p1, 95437);
     }
 
     #[test]
     fn part_2_ex() {
-        let sizes = folder_sizes(include_str!("../../../examples/year2022_day7.txt"));
+        let sizes = folder_sizes(include_str!("../../../../examples/year2022_day7.txt"));
         let p2 = part_2(&sizes);
         assert_eq!(p2, 24933642);
     }
