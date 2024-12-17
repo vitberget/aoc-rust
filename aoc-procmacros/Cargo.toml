@@ -7,5 +7,6 @@ edition = "2021"
 proc-macro = true
 
 [dependencies]
+aoc-utils = { path = "../aoc-utils" }
 quote = "1.0.37"
 syn = { version = "2.0.90", features = ["extra-traits", "fold", "full", "visit"] }
