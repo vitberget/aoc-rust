@@ -19,10 +19,10 @@ pub(crate) fn log_duration_impl(_args: TokenStream, input: TokenStream) -> Token
             };
 
             if std::env::var("PROFILING").is_ok() {
-                const __white: &str = aoc_utils::color::WHITE;
-                const __brown: &str = aoc_utils::color::BROWN;
-                const __reset: &str = aoc_utils::color::RESET;
-                println!("{__brown}{}::{__white}{}{__brown}() took {__white}{}.{:06}{__brown}s{__reset}", 
+                const __WHITE: &str = aoc_utils::color::WHITE;
+                const __BROWN: &str = aoc_utils::color::BROWN;
+                const __RESET: &str = aoc_utils::color::RESET;
+                println!("{__WHITE}{}::{__WHITE}{}{__BROWN}() took {__WHITE}{}.{:06}{__BROWN}s{__RESET}", 
                     module_path!(),
                     stringify!(#function_identifier), 
                     __start.elapsed().as_secs(),
