@@ -22,7 +22,7 @@ pub(crate) fn log_duration_impl(_args: TokenStream, input: TokenStream) -> Token
                 const __WHITE: &str = aoc_utils::color::WHITE;
                 const __BROWN: &str = aoc_utils::color::BROWN;
                 const __RESET: &str = aoc_utils::color::RESET;
-                println!("{__WHITE}{}::{__WHITE}{}{__BROWN}() took {__WHITE}{}.{:06}{__BROWN}s{__RESET}", 
+                println!("{__BROWN}{}::{__WHITE}{}{__BROWN}() took {__WHITE}{}.{:06}{__BROWN}s{__RESET}", 
                     module_path!(),
                     stringify!(#function_identifier), 
                     __start.elapsed().as_secs(),
