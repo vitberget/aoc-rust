@@ -3,8 +3,7 @@
 resolver = "2"
 
 members = [
-    "aoc",
+    "aoc", 
+    "aoc-procmacros",
     "aoc-utils",
 ]
-
-

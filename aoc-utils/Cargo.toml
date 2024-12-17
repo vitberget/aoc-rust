@@ -1,5 +1,5 @@
 [package]
-name = "aoc_utils"
+name = "aoc-utils"
 version = "0.1.0"
 edition = "2021"
 
