@@ -2,6 +2,7 @@ use std::collections::HashMap;
 
 use aoc_procmacros::log_duration;
 
+#[log_duration]
 pub fn blink_many_times(text: &str, times: usize) -> usize {
     let mut arragment = text_to_arragment(text);
 
