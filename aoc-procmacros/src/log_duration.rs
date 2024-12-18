@@ -12,17 +12,20 @@ pub(crate) fn log_duration_impl(_args: TokenStream, input: TokenStream) -> Token
         #(#attrs)*
 
         #vis #sig {
-            let __start = std::time::Instant::now();
+            static __profiling: std::sync::LazyLock<bool> = std::sync::LazyLock::new(||
+                    std::env::var("PROFILING").is_ok()
+                );
 
-            let __result = {
-                #(#statements)*
-            };
+            if *__profiling {
+                let __start = std::time::Instant::now();
 
-            if std::env::var("PROFILING").is_ok() {
+                let __result = { #(#statements)* };
+
                 const __WHITE: &str = aoc_utils::color::WHITE;
                 const __BROWN: &str = aoc_utils::color::BROWN;
                 const __RESET: &str = aoc_utils::color::RESET;
                 const __GRAY: &str = aoc_utils::color::LIGHT_GRAY;
+
                 println!("{__BROWN}{}::{__WHITE}{}{__BROWN}() took {__WHITE}{}{__RESET}.{__WHITE}{:03} {:03}{__BROWN} sec{__RESET}", 
                     module_path!(),
                     stringify!(#function_identifier), 
@@ -30,10 +33,12 @@ pub(crate) fn log_duration_impl(_args: TokenStream, input: TokenStream) -> Token
                     (__start.elapsed().as_micros() / 1_000) % 1_000,
                     __start.elapsed().as_micros() % 1_000,
                 );
-            }
 
-            return __result;
+                __result
+
+            } else {
+                 { #(#statements)* }
+            }
         }
     ).into()
 }
-
