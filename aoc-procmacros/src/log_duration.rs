@@ -17,21 +17,22 @@ pub(crate) fn log_duration_impl(_args: TokenStream, input: TokenStream) -> Token
                 );
 
             if *__profiling {
-                let __start = std::time::Instant::now();
-
-                let __result = { #(#statements)* };
-
                 const __WHITE: &str = aoc_utils::color::WHITE;
                 const __BROWN: &str = aoc_utils::color::BROWN;
                 const __RESET: &str = aoc_utils::color::RESET;
                 const __GRAY: &str = aoc_utils::color::LIGHT_GRAY;
 
-                let __micros = __start.elapsed().as_micros();
+                let __start = std::time::Instant::now();
+
+                let __result = { #(#statements)* };
+
+                let __elapsed = __start.elapsed();
+                let __micros = __elapsed.as_micros();
 
                 println!("{__BROWN}{}::{__WHITE}{}{__BROWN}() took {__WHITE}{}{__RESET}.{__WHITE}{:03} {:03}{__BROWN} sec{__RESET}", 
                     module_path!(),
                     stringify!(#function_identifier), 
-                    __start.elapsed().as_secs(),
+                    __elapsed.as_secs(),
                     (__micros / 1_000) % 1_000,
                     __micros % 1_000,
                 );
