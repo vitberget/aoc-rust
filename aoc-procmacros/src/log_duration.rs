@@ -25,11 +25,11 @@ pub(crate) fn log_duration_impl(proc_args: TokenStream, input: TokenStream) -> T
             #(#attrs)*
 
             #vis #sig {
-                static __profiling: std::sync::LazyLock<bool> = std::sync::LazyLock::new(||
+                static __PROFILING: std::sync::LazyLock<bool> = std::sync::LazyLock::new(||
                     std::env::var("PROFILING").is_ok()
                 );
 
-                if *__profiling {
+                if *__PROFILING {
                     static __COUNTER: std::sync::atomic::AtomicUsize = std::sync::atomic::AtomicUsize::new(0);
                     let __counter = __COUNTER.fetch_add(1, std::sync::atomic::Ordering::SeqCst);
 
@@ -65,11 +65,11 @@ pub(crate) fn log_duration_impl(proc_args: TokenStream, input: TokenStream) -> T
             #(#attrs)*
 
             #vis #sig {
-                static __profiling: std::sync::LazyLock<bool> = std::sync::LazyLock::new(||
+                static __PROFILING: std::sync::LazyLock<bool> = std::sync::LazyLock::new(||
                     std::env::var("PROFILING").is_ok()
                 );
 
-                if *__profiling {
+                if *__PROFILING {
                     const __WHITE: &str = aoc_utils::color::WHITE;
                     const __BROWN: &str = aoc_utils::color::BROWN;
                     const __RESET: &str = aoc_utils::color::RESET;
