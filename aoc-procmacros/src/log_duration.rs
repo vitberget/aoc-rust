@@ -26,12 +26,14 @@ pub(crate) fn log_duration_impl(_args: TokenStream, input: TokenStream) -> Token
                 const __RESET: &str = aoc_utils::color::RESET;
                 const __GRAY: &str = aoc_utils::color::LIGHT_GRAY;
 
+                let __micros = __start.elapsed().as_micros();
+
                 println!("{__BROWN}{}::{__WHITE}{}{__BROWN}() took {__WHITE}{}{__RESET}.{__WHITE}{:03} {:03}{__BROWN} sec{__RESET}", 
                     module_path!(),
                     stringify!(#function_identifier), 
                     __start.elapsed().as_secs(),
-                    (__start.elapsed().as_micros() / 1_000) % 1_000,
-                    __start.elapsed().as_micros() % 1_000,
+                    (__micros / 1_000) % 1_000,
+                    __micros % 1_000,
                 );
 
                 __result
