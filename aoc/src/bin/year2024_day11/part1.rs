@@ -11,7 +11,7 @@ pub fn blink_many_times(text: &str, times: usize) -> usize {
     arragment.len()
 }
 
-#[log_duration]
+#[log_duration(counter)]
 fn blink(arragment: &[u64]) -> Vec<u64> {
     let mut result: Vec<u64> = vec![];
 

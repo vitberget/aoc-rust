@@ -13,7 +13,7 @@ pub fn blink_many_times(text: &str, times: usize) -> usize {
     arragment.values().sum()
 }
 
-#[log_duration]
+#[log_duration(counter)]
 fn blink(arragment: &HashMap<u64, usize>) -> HashMap<u64, usize> {
     let mut result: HashMap<u64, usize> = HashMap::new();
 
