@@ -12,7 +12,7 @@ pub(crate) fn token_stream_has_ident(token_stream: TokenStream, name: &str) -> b
     )
 }
 
-pub(crate) fn log_duration_impl(proc_args: TokenStream, input: TokenStream) -> TokenStream {
+pub(crate) fn aoc_profile_impl(proc_args: TokenStream, input: TokenStream) -> TokenStream {
     let ItemFn { sig, vis, block, attrs, } = parse_macro_input!(input as ItemFn);
 
     let statements = block.stmts;
@@ -25,11 +25,11 @@ pub(crate) fn log_duration_impl(proc_args: TokenStream, input: TokenStream) -> T
             #(#attrs)*
 
             #vis #sig {
-                static __PROFILING: std::sync::LazyLock<bool> = std::sync::LazyLock::new(||
-                    std::env::var("PROFILING").is_ok()
+                static __AOC_PROFILING: std::sync::LazyLock<bool> = std::sync::LazyLock::new(||
+                    std::env::var("AOC_PROFILING").is_ok()
                 );
 
-                if *__PROFILING {
+                if *__AOC_PROFILING {
                     static __COUNTER: std::sync::atomic::AtomicUsize = std::sync::atomic::AtomicUsize::new(0);
                     let __counter = __COUNTER.fetch_add(1, std::sync::atomic::Ordering::SeqCst);
 
@@ -65,11 +65,11 @@ pub(crate) fn log_duration_impl(proc_args: TokenStream, input: TokenStream) -> T
             #(#attrs)*
 
             #vis #sig {
-                static __PROFILING: std::sync::LazyLock<bool> = std::sync::LazyLock::new(||
-                    std::env::var("PROFILING").is_ok()
+                static __AOC_PROFILING: std::sync::LazyLock<bool> = std::sync::LazyLock::new(||
+                    std::env::var("AOC_PROFILING").is_ok()
                 );
 
-                if *__PROFILING {
+                if *__AOC_PROFILING {
                     const __WHITE: &str = aoc_utils::color::WHITE;
                     const __BROWN: &str = aoc_utils::color::BROWN;
                     const __RESET: &str = aoc_utils::color::RESET;

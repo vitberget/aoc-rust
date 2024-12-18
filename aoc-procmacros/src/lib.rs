@@ -1,12 +1,12 @@
 extern crate proc_macro;
 
-use log_duration::log_duration_impl;
+use aoc_profile::aoc_profile_impl;
 use proc_macro::TokenStream;
 
-pub(crate) mod log_duration;
+pub(crate) mod aoc_profile;
 
 #[proc_macro_attribute]
-pub fn log_duration(args: TokenStream, item: TokenStream) -> TokenStream {
-    log_duration_impl(args, item)
+pub fn aoc_profile(args: TokenStream, item: TokenStream) -> TokenStream {
+    aoc_profile_impl(args, item)
 }
 

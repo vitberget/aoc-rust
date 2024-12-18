@@ -1,8 +1,8 @@
 use std::collections::HashMap;
 
-use aoc_procmacros::log_duration;
+use aoc_procmacros::aoc_profile;
 
-#[log_duration]
+#[aoc_profile]
 pub fn blink_many_times(text: &str, times: usize) -> usize {
     let mut arragment = text_to_arragment(text);
 
@@ -13,7 +13,7 @@ pub fn blink_many_times(text: &str, times: usize) -> usize {
     arragment.values().sum()
 }
 
-#[log_duration(counter)]
+#[aoc_profile(counter)]
 fn blink(arragment: &HashMap<u64, usize>) -> HashMap<u64, usize> {
     let mut result: HashMap<u64, usize> = HashMap::new();
 
