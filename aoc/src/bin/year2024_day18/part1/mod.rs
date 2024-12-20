@@ -35,7 +35,7 @@ pub struct Memory {
     pub corrupted: HashSet<MemPos>
 }
 
-pub(crate) fn part1(puzzle_text: &str, no_of_instructions: usize, width: i16, height: i16) -> anyhow::Result<usize> {
+pub fn part1(puzzle_text: &str, no_of_instructions: usize, width: i16, height: i16) -> anyhow::Result<usize> {
     let memory = text_to_memory(puzzle_text, no_of_instructions, width, height);
 
     let mut visited: HashSet<MemPos> = HashSet::from([memory.start_pos]);
@@ -73,7 +73,7 @@ pub fn update_paths(current_positions: &HashSet<MemPos>, visited: &HashSet<MemPo
             .collect()
 }
 
-fn text_to_memory(puzzle_text: &str, no_of_instructions: usize, width: i16, height: i16) -> Memory {
+pub fn text_to_memory(puzzle_text: &str, no_of_instructions: usize, width: i16, height: i16) -> Memory {
     let corrupted: HashSet<MemPos> = puzzle_text.lines()
         .take(no_of_instructions)
         .flat_map(|line| line.parse::<MemPos>())
@@ -93,7 +93,7 @@ mod tests {
     #[test]
     fn part_1() -> anyhow::Result<()> {
         assert_eq!(
-            part1(include_str!("example.txt"), 12, 6, 6)?,
+            part1(include_str!("../example.txt"), 12, 6, 6)?,
             22
         );
         Ok(())
