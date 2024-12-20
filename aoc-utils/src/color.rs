@@ -19,3 +19,7 @@ pub const LIGHT_BLUE: &str     = "\x1b[1;34m";
 pub const LIGHT_PURPLE: &str   = "\x1b[1;35m";
 pub const LIGHT_CYAN: &str     = "\x1b[1;36m";
 pub const WHITE: &str          = "\x1b[1;37m";
+
+pub fn goto(x: usize, y: usize) -> String {
+    format!("\x1b[{y};{x}H]")
+}

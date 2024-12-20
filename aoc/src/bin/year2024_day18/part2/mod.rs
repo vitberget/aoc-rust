@@ -5,7 +5,7 @@ use crate::part1::part1;
 pub fn part2(puzzle_text: &str, no_of_instructions: usize, width: i16, height: i16) -> anyhow::Result<String> {
     let mut no_of_instructions = no_of_instructions;
 
-    while part1(puzzle_text, no_of_instructions, width, height).is_ok() {
+    while part1(puzzle_text, no_of_instructions, width, height, false).is_ok() {
         no_of_instructions += 1;
     }
     Ok(puzzle_text.lines().nth(no_of_instructions-1).context("No such line")?.to_string())
