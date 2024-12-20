@@ -3,6 +3,10 @@ use anyhow::bail;
 use crate::{parse::text_to_computer, part1::run_program};
 
 pub fn part2(text: &str) -> anyhow::Result<u64> {
+    // Solved though inspecting the output from 0..MAX,
+    // Octal is 3 bits... so played around with thtat a bit...
+    // Had to ad the test_number -+ 1, otherwise answer to big
+
     let mut test_number: u64 = 0;
     loop {
         let mut computer = text_to_computer(text)?;
