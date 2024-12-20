@@ -10,7 +10,7 @@ pub fn part1(text: &str) -> anyhow::Result<String> {
     Ok(computer.output.iter().join(","))
 }
 
-fn run_program(computer: &mut Computer) -> anyhow::Result<()> {
+pub fn run_program(computer: &mut Computer) -> anyhow::Result<()> {
     while ! is_halted(computer) {
         tick(computer)?;
     }

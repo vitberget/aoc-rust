@@ -1,8 +1,6 @@
-use std::str::FromStr;
-
 use anyhow::bail;
 
-use crate::structs::{Computer, OpCode, Registers};
+use crate::structs::{Computer, Registers};
 
 ///Register A: 729
 ///Register B: 0
