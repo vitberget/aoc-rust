@@ -1,9 +1,27 @@
+use std::ops::Add;
 use std::collections::{HashMap, HashSet};
 
 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
 pub struct Position {
     pub x: isize,
     pub y: isize,
+}
+
+impl Add for Position {
+    type Output = Self;
+
+    fn add(self, other: Self) -> Self::Output {
+        Self {
+            x: self.x + other.x,
+            y: self.y + other.y,
+        }
+    }
+}
+
+impl Position {
+    pub fn new(x:isize, y:isize) -> Self {
+        Self {x, y}
+    }
 }
 
 pub type CharMap = HashMap<char, HashSet<Position>>;
