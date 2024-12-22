@@ -1,5 +1,7 @@
+use aoc_procmacros::aoc_profile;
 use separator::usize;
 
+#[aoc_profile]
 pub fn solve_part_1(text: &str) -> anyhow::Result<u64> {
     Ok(text.lines()
         .map(|line| line.parse::<u64>().unwrap())
