@@ -1,4 +1,4 @@
-use std::ops::{Add, Sub};
+use std::ops::{Add, Mul, MulAssign, Sub};
 use std::collections::{HashMap, HashSet};
 
 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
@@ -25,6 +25,23 @@ impl Sub for Position {
             x: self.x - other.x,
             y: self.y - other.y,
         }
+    }
+}
+
+impl Mul<isize> for Position {
+    type Output = Self;
+
+    fn mul(self, other: isize) -> Self::Output {
+        Self {
+            x: self.x * other,
+            y: self.y * other
+        }
+    }
+}
+impl MulAssign<isize> for Position {
+    fn mul_assign(&mut self, rhs: isize) {
+        self.x *= rhs;
+        self.y *= rhs;
     }
 }
 
@@ -76,5 +93,15 @@ mod tests {
         char_map.insert('d', HashSet::from([Position { x: 1, y: 1}]));
 
         assert_eq!(text_to_char_map(TEST_TEXT), char_map);
+    }
+
+    #[test]
+    fn test_mul() {
+        let test: Position = Position::new(3,4) * 5;
+        assert_eq!(test, Position::new(15,20));
+
+        let mut test: Position = Position::new(4,5);
+        test *= 5;
+        assert_eq!(test, Position::new(20,25));
     }
 }
