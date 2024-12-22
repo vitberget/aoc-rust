@@ -17,13 +17,13 @@ pub fn evolve_secret_number(number: &u64) -> u64 {
     let mut new_number:u64  = *number;  
 
     new_number ^= new_number << 6;
-    new_number %= 16777216;
+    new_number &= 0xFFFFFF;
 
     new_number ^= new_number >> 5;
-    new_number %= 16777216;
+    new_number &= 0xFFFFFF;
 
     new_number ^= new_number << 11;
-    new_number %= 16777216;
+    new_number &= 0xFFFFFF;
 
     new_number
 }

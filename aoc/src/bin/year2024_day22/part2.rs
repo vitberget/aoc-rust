@@ -25,14 +25,16 @@ pub fn solve_part_2(text: &str) -> anyhow::Result<i64> {
         .unwrap())
 }
 
+#[aoc_profile]
 fn get_sum_of(possible: &Diffs, series: &[HashMap<Diffs, i64>]) -> i64 {
     series.iter()
         .flat_map(|s| s.get(possible))
         .sum()
 }
 
-pub fn get_hashy(number: &u64, amount: usize) -> HashMap<(i8,i8,i8,i8), i64> {
-    let mut result: HashMap<(i8,i8,i8,i8), i64> = HashMap::new();
+#[aoc_profile]
+pub fn get_hashy(number: &u64, amount: usize) -> HashMap<Diffs, i64> {
+    let mut result: HashMap<Diffs, i64> = HashMap::new();
 
     let mut secret_number: u64 = number.to_owned();
     let mut price:i8 = (number%10) as i8;
