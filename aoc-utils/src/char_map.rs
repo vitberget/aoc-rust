@@ -1,4 +1,4 @@
-use std::ops::Add;
+use std::ops::{Add, Sub};
 use std::collections::{HashMap, HashSet};
 
 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
@@ -17,10 +17,23 @@ impl Add for Position {
         }
     }
 }
+impl Sub for Position {
+    type Output = Self;
+
+    fn sub(self, other: Self) -> Self::Output {
+        Self {
+            x: self.x - other.x,
+            y: self.y - other.y,
+        }
+    }
+}
 
 impl Position {
     pub fn new(x:isize, y:isize) -> Self {
         Self {x, y}
+    }
+    pub fn manhattan(&self) -> isize {
+        self.x.abs() + self.y.abs()
     }
 }
 

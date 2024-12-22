@@ -1,7 +1,9 @@
 use std::collections::HashSet;
 
+use aoc_procmacros::aoc_profile;
 use aoc_utils::char_map::{text_to_char_map, CharMap, Position};
 
+#[aoc_profile]
 pub fn part_1(text: &str, filter_value: usize) -> anyhow::Result<usize> {
     let char_map = text_to_char_map(text);
 
@@ -50,11 +52,10 @@ fn find_wall_holes(race_track: &[Position], char_map: &CharMap) -> Vec<(Position
     result
 }
 
-fn find_race_track(char_map: &CharMap) -> Vec<Position> {
+pub fn find_race_track(char_map: &CharMap) -> Vec<Position> {
     let mut current_pos: Position = *char_map.get(&'S').unwrap().iter().next().unwrap();
     let end_pos: Position = *char_map.get(&'E').unwrap().iter().next().unwrap();
     let mut race_track: Vec<Position> = vec![current_pos];
-
 
     let track = char_map.get(&'.').unwrap();
 
@@ -63,8 +64,6 @@ fn find_race_track(char_map: &CharMap) -> Vec<Position> {
         current_pos = next_pos(&current_pos, track, &race_track, &end_pos);
         race_track.push(current_pos);
     }
-
-
 
     race_track
 }
@@ -86,8 +85,24 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_example() -> anyhow::Result<()> {
-        let _result = part_1(include_str!("example.txt"), 0)?;
+    fn test_example_p1() -> anyhow::Result<()> {
+        let result = part_1(include_str!("example.txt"), 0)?;
+        let facit = 14 + 14 + 2  + 4  + 2  + 3  + 1 + 1 + 1 + 1 + 1;
+
+        assert_eq!(result, facit);
+
+        // There are 14 cheats that save 2 picoseconds.
+        // There are 14 cheats that save 4 picoseconds.
+        // There are 2 cheats that save 6 picoseconds.
+        // There are 4 cheats that save 8 picoseconds.
+        // There are 2 cheats that save 10 picoseconds.
+        // There are 3 cheats that save 12 picoseconds.
+        // There is one cheat that saves 20 picoseconds.
+        // There is one cheat that saves 36 picoseconds.
+        // There is one cheat that saves 38 picoseconds.
+        // There is one cheat that saves 40 picoseconds.
+        // There is one cheat that saves 64 picoseconds.
+
         Ok(())
     }
 }
