@@ -1,7 +1,9 @@
-use std::{collections::HashSet, fmt::{Debug, Write}};
+use std::fmt::Debug;
+use std::collections::HashSet;
 
 use aoc_utils::char_map::Position;
 
+#[derive(Clone)]
 pub struct Path {
     pub path: Vec<PositionWithDirection>
 }
