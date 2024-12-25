@@ -13,3 +13,9 @@ Run with envirment flag `AOC_PROFILING` set to... anything.
 ```sh
 AOC_PROFILING=1 cargo run --bin year2024_day11
 ```
+
+## Input
+
+1. Without arguments: take file content from `puzzles/year-YYYY-dayDD.txt`
+2. Without argument `-`: read from stdin
+3. Without other argument: take file content from file names as argument
