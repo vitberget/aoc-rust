@@ -17,10 +17,10 @@ pub(crate) fn parse_text(text: &str) -> (Stacks, Moves) {
 
 fn parse_moves(move_split: &str) -> Moves {
     let move_regex: Regex = Regex::new(r"^move (?P<amount>[0-9]+) from (?P<from>[0-9]+) to (?P<to>[0-9])$").unwrap();
-    return move_split
+    move_split
         .lines()
         .map(|line| parse_move(&move_regex, line))
-        .collect();
+        .collect()
 }
 
 fn parse_stack(stack_text: &str) -> Stacks {
@@ -49,13 +49,13 @@ fn parse_stack(stack_text: &str) -> Stacks {
 }
 
 fn get_no_of_stacks(stack_text: &str) -> usize {
-    return stack_text.lines().next_back()
+    stack_text.lines().next_back()
         .unwrap()
         .split_whitespace()
         .last()
         .unwrap()
         .parse()
-        .unwrap();
+        .unwrap()
 }
 
 fn parse_move(move_regex: &Regex, line: &str) -> (u32, u32, u32) {
@@ -72,7 +72,7 @@ mod tests {
 
     #[test]
     fn parse_example() {
-        let (stacks, moves) = parse_text(include_str!("../../../../examples/year2022_day5.txt"));
+        let (stacks, moves) = parse_text(include_str!("example.txt"));
         assert_eq!(stacks, vec![
             Stack::from(['N', 'Z']),
             Stack::from(['D', 'C', 'M']),

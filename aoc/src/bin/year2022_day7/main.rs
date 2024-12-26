@@ -21,10 +21,10 @@ fn main() {
 fn part_1(dir_sizes: &[u32]) -> u32 {
     const LIMIT: u32 = 100_000;
 
-    return dir_sizes
+    dir_sizes
         .iter()
         .filter(|&size_of_dir| size_of_dir < &LIMIT)
-        .sum();
+        .sum()
 }
 
 fn part_2(dir_sizes: &[u32]) -> u32 {
@@ -32,10 +32,10 @@ fn part_2(dir_sizes: &[u32]) -> u32 {
 
     let total_size: &u32 = dir_sizes.iter().max().unwrap();
 
-    return *dir_sizes.iter()
+    *dir_sizes.iter()
         .filter(|&size_of_dir| total_size - size_of_dir <= MAX_SIZE)
         .min()
-        .unwrap();
+        .unwrap()
 }
 
 #[cfg(test)]
@@ -44,14 +44,14 @@ mod tests {
 
     #[test]
     fn part_1_ex() {
-        let sizes = folder_sizes(include_str!("../../../../examples/year2022_day7.txt"));
+        let sizes = folder_sizes(include_str!("example.txt"));
         let p1 = part_1(&sizes);
         assert_eq!(p1, 95437);
     }
 
     #[test]
     fn part_2_ex() {
-        let sizes = folder_sizes(include_str!("../../../../examples/year2022_day7.txt"));
+        let sizes = folder_sizes(include_str!("example.txt"));
         let p2 = part_2(&sizes);
         assert_eq!(p2, 24933642);
     }

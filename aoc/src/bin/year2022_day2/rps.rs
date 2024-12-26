@@ -20,7 +20,7 @@ impl fmt::Display for RockPaperScissor {
 }
 
 pub(crate) fn file_to_rps(filename: &str) -> Vec<(RockPaperScissor,RockPaperScissor)> {
-    return fs::read_to_string(filename)
+    fs::read_to_string(filename)
         .unwrap()
         .lines()
         .map(|line| line.split_whitespace().take(2).collect())
