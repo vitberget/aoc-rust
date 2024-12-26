@@ -19,3 +19,15 @@ AOC_PROFILING=1 cargo run --bin year2024_day11
 1. Without arguments: take file content from `puzzles/year-YYYY-dayDD.txt`
 2. Without argument `-`: read from stdin
 3. Without other argument: take file content from file names as argument
+
+## Aoc Utils
+
+The `aoc-utils` binary can download puzzles and create template solutions.
+
+```sh
+cargo run --bin aoc-utils create 2025 1 
+```
+
+```sh
+cargo run --bin aoc-utils download 2025 1
+```

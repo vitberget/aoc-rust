@@ -1,6 +1,7 @@
 use clap::{Parser, Subcommand};
 
 pub mod create;
+pub mod download;
 
 #[derive(Parser)]
 pub struct AocArgs {
@@ -19,7 +20,7 @@ pub fn main() -> anyhow::Result<()> {
 
     match args.cmd {
         Commands::Create { year, day } => create::create(year, day),
-        Commands::Download { year, day } => todo!(),
+        Commands::Download { year, day } => download::download(year, day),
     }
 }
 
