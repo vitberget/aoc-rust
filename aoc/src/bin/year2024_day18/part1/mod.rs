@@ -1,9 +1,10 @@
-use std::time::Duration;
-use std::{collections::HashSet, thread::sleep};
+use std::collections::HashSet;
 use std::str::FromStr;
 
 use anyhow::{bail, Context};
-use aoc_utils::color;
+use print::print_it;
+
+pub mod print;
 
 #[derive(Clone, Copy, Debug, Hash, Eq, PartialEq)]
 pub struct MemPos {
@@ -37,65 +38,30 @@ pub struct Memory {
     pub corrupted: HashSet<MemPos>
 }
 
-pub fn part1(puzzle_text: &str, no_of_instructions: usize, width: i16, height: i16, print: bool) -> anyhow::Result<usize> {
+pub fn part1(puzzle_text: &str, no_of_instructions: usize, width: i16, height: i16, print: bool, print_delay: u64) -> anyhow::Result<(usize, Memory)> {
     let memory = text_to_memory(puzzle_text, no_of_instructions, width, height);
 
     let mut visited: HashSet<MemPos> = HashSet::from([memory.start_pos]);
     let mut count = 0; 
     let mut current_positions: HashSet<MemPos> = HashSet::from([memory.start_pos]);
 
-    if print { print_it(&memory, &visited, &current_positions)}
+    if print { print_it(&memory, &visited, &current_positions, 100)}
 
     while ! current_positions.is_empty() {
         current_positions = update_paths(&current_positions, &visited, &memory);
         count += 1;
 
         if current_positions.iter().any(|mem_pos| *mem_pos == memory.end_pos) {
-            return Ok(count);
+            return Ok((count, memory));
         }
 
         current_positions.iter().for_each(|mem_pos| { visited.insert(*mem_pos); });
-        if print { print_it(&memory, &visited, &current_positions)}
+        if print { print_it(&memory, &visited, &current_positions, print_delay)}
     }
 
     bail!("current positions got empty") 
 }
 
-fn print_it(memory: &Memory, visited: &HashSet<MemPos>, current_positions: &HashSet<MemPos>) {
-    println!();
-    let mut text: String = String::new();
-    text.push_str(color::RED);
-    text.push_str(&color::goto(0,0));
-    text.push('\n');
-
-    for y in 0..=memory.height {
-        for x in 0..=memory.width {
-            let mp = MemPos { x, y };
-            if mp == memory.start_pos {
-                text.push_str(color::YELLOW);
-                text.push('S');
-            } else if mp == memory.end_pos {
-                text.push_str(color::YELLOW);
-                text.push('E');
-            } else if current_positions.contains(&mp) {
-                text.push_str(color::WHITE);
-                text.push('O');
-            } else if visited.contains(&mp) {
-                text.push_str(color::LIGHT_GRAY);
-                text.push('O');
-            } else if memory.corrupted.contains(&mp) {
-                text.push_str(color::LIGHT_RED);
-                text.push('#');
-            } else {
-                text.push(' ');
-            }
-        }
-        text.push('\n');
-    }
-    text.push_str(color::RESET);
-    println!("{text}");
-    sleep(Duration::from_millis(100));
-}
 
 pub fn update_paths(current_positions: &HashSet<MemPos>, visited: &HashSet<MemPos>, memory: &Memory) -> HashSet<MemPos> {
         current_positions.iter()
@@ -134,7 +100,7 @@ mod tests {
     #[test]
     fn part_1() -> anyhow::Result<()> {
         assert_eq!(
-            part1(include_str!("../example.txt"), 12, 6, 6, false)?,
+            part1(include_str!("../example.txt"), 12, 6, 6, false, 0)?.0,
             22
         );
         Ok(())
