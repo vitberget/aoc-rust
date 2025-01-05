@@ -63,7 +63,6 @@ pub fn decompress(text: &str) -> String {
     res.iter().collect()
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
