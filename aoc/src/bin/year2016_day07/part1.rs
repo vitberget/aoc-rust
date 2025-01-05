@@ -1,4 +1,3 @@
-
 use aoc_procmacros::aoc_profile;
 use itertools::Itertools;
 
