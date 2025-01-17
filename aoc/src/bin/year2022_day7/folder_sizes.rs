@@ -14,9 +14,9 @@ pub(crate) fn folder_sizes(text: &str) -> Vec<u32> {
         }
     }
 
-    return dir_sizes
+    dir_sizes
         .values().copied()
-        .collect();
+        .collect()
 }
 
 fn cd(cwd: &mut LinkedList<String>, line: &str) {
@@ -57,7 +57,7 @@ mod tests {
 
     #[test]
     fn folder_sizes_ex() {
-        let sizes = folder_sizes(include_str!("../../../../examples/year2022_day7.txt"));
+        let sizes = folder_sizes(include_str!("example.txt"));
         assert!(sizes.contains(&584));
         assert!(sizes.contains(&94853));
         assert!(sizes.contains(&24933642));

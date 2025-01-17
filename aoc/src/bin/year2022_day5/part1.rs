@@ -23,7 +23,7 @@ mod tests {
 
     #[test]
     fn example() {
-        let res = part1(include_str!("../../../../examples/year2022_day5.txt"));
+        let res = part1(include_str!("example.txt"));
         assert_eq!(res, "CMZ");
     }
 }

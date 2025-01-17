@@ -15,28 +15,28 @@ fn main() {
 }
 
 fn solve_part1(example: &str) -> usize {
-    return example.lines()
+    example.lines()
         .map(util::line_to_ranges)
         .filter(|(r1, r2)| overlaps_completely(r1, r2))
-        .count();
+        .count()
 }
 
 fn solve_part2(example: &str) -> usize {
-    return example.lines()
+    example.lines()
         .map(util::line_to_ranges)
         .filter(|(r1, r2)| overlaps_at_all(r1, r2))
-        .count();
+        .count()
 }
 
 fn overlaps_completely<T: RangeBounds<i32> + StartEnd<i32>>(rng_a: &T, rng_b: &T) -> bool {
-    return rng_a.contains(rng_b.the_start()) && rng_a.contains(rng_b.the_end())
-        || rng_b.contains(rng_a.the_start()) && rng_b.contains(rng_a.the_end());
+    rng_a.contains(rng_b.the_start()) && rng_a.contains(rng_b.the_end())
+        || rng_b.contains(rng_a.the_start()) && rng_b.contains(rng_a.the_end())
 }
 
 fn overlaps_at_all<T: RangeBounds<i32> + StartEnd<i32>>(rng_a: &T, rng_b: &T) -> bool {
-    return rng_a.contains(rng_b.the_start()) ||
+    rng_a.contains(rng_b.the_start()) ||
         rng_a.contains(rng_b.the_end()) ||
-        rng_b.contains(rng_a.the_start());
+        rng_b.contains(rng_a.the_start())
     // || p1.contains(&p0.end());p1
 }
 
@@ -52,7 +52,7 @@ mod tests {
 
     #[test]
     fn test1() {
-        let example = include_str!("../../../../examples/year2022_day4.txt");
+        let example = include_str!("example.txt");
         assert_eq!(solve_part1(example), 2)
     }
 }
