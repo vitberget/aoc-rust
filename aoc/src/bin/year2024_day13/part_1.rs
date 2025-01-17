@@ -45,6 +45,4 @@ mod tests {
 
         assert_eq!(final_count, 480);
     }
-
-
 }
