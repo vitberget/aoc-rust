@@ -7,7 +7,6 @@ pub fn part1(text: &str) -> anyhow::Result<usize> {
     Ok(sum)
 }
 
-
 fn get_invalid_ids(line: &str) -> anyhow::Result<Vec<usize>> {
     let (low_str, high_str) = line.split_once('-').unwrap();
 
@@ -21,8 +20,10 @@ fn get_invalid_ids(line: &str) -> anyhow::Result<Vec<usize>> {
 
         if digits_in_number % 2 == 0 {
             let divider = 10_usize.pow(digits_in_number / 2);
+
             let left = number / divider;
             let right = number % divider;
+
             if left == right {
                 result.push(number);
             }
@@ -31,8 +32,6 @@ fn get_invalid_ids(line: &str) -> anyhow::Result<Vec<usize>> {
 
     Ok(result)
 }
-
-
 
 #[cfg(test)]
 mod tests {
@@ -45,8 +44,6 @@ mod tests {
         assert_eq!(result, 1227775554); 
         Ok(())
     }
-
-    
 
     /// 11-22 has two invalid IDs, 11 and 22.
     #[test]
@@ -117,12 +114,13 @@ mod tests {
     fn test_no_ids() -> anyhow::Result<()> {
         let result = get_invalid_ids("565653-565659")?;
         assert!(result.is_empty());
+
         let result = get_invalid_ids("824824821-824824827")?;
         assert!(result.is_empty());
+
         let result = get_invalid_ids("2121212118-2121212124")?;
         assert!(result.is_empty());
 
         Ok(())
     }
-
 }
