@@ -9,13 +9,14 @@ pub fn create(year: u16, day:u16) -> anyhow::Result<()> {
     ensure!(year < 2100, "Year must be between 2014-2099");
     ensure!(day > 0, "Day must be between 1-25");
     ensure!(day < 26, "Day must be between 1-25");
+    ensure!(year < 2025 || day < 13, "In 2025 and later, day must be 1-12");
 
     const BASE: &str = "aoc/src/bin/";
     
     let base = Path::new(BASE);
     ensure!(base.is_dir(), "{:?} is not a dir", base);
 
-    let new_dir_str = format!("year{year}_day{day:02}");
+    let new_dir_str = format!("year{year}_day{day}");
     let new_dir = base.join(&new_dir_str);
     ensure!(!new_dir.exists(), "{new_dir_str} already exists");
     create_dir(&new_dir)?;

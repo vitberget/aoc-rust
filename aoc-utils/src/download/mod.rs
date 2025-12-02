@@ -10,13 +10,13 @@ pub fn download(year: u16, day:u16) -> anyhow::Result<()> {
     ensure!(year < 2100, "Year must be between 2014-2099");
     ensure!(day > 0, "Day must be between 1-25");
     ensure!(day < 26, "Day must be between 1-25");
-
+    ensure!(year < 2025 || day < 13, "In 2025 and later, day must be 1-12");
 
     const BASE: &str = "puzzles";
     let base = Path::new(BASE);
     ensure!(base.is_dir(), "{:?} is not a dir", base);
 
-    let puzzle_str = format!("year{year}_day{day:02}.txt");
+    let puzzle_str = format!("year{year}_day{day}.txt");
     let puzzle_path = base.join(&puzzle_str);
     ensure!(!puzzle_path.exists(), "{puzzle_str} already exists");
 
