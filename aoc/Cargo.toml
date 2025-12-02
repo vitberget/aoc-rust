@@ -1,19 +1,19 @@
 [package]
 name = "aoc-rust"
 version = "0.1.0"
-edition = "2021"
+edition = "2024"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-opencl3 = "0.10.0"
-regex = "1.10.2"
+opencl3 = "0.12.1"
+regex = "1.12.2"
 aoc-utils = { path = "../aoc-utils" }
 aoc-procmacros = { path = "../aoc-procmacros" }
 anyhow = "1.0.75"
 lazy_static = "1.4.0"
-tokio = { version = "1.34.0", features = ["rt-multi-thread", "tokio-macros", "full"] }
+tokio = { version = "1.48.0", features = ["rt-multi-thread", "tokio-macros", "full"] }
 itertools = "0.14.0"
 separator = "0.4.1"
-googletest = { version = "0.13.0", features = ["anyhow", "proptest"] }
-md5 = "0.7.0"
+googletest = { version = "0.14.2", features = ["anyhow", "proptest"] }
+md5 = "0.8.0"
