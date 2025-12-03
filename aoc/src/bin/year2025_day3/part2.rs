@@ -29,7 +29,7 @@ mod tests {
     #[test]
     fn test_example() -> anyhow::Result<()> {
         let example = include_str!("example.txt");
-        let result = part1(example)?;
+        let result = part2(example)?;
         assert_eq!(result, 357);
         Ok(())
     }
