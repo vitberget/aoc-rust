@@ -4,3 +4,16 @@ use aoc_procmacros::aoc_profile;
 pub fn part1(text: &str) -> anyhow::Result<usize> {
     Ok(0)
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_example() -> anyhow::Result<()> {
+        const EXAMPLE: &str = "";
+        let result = part1(EXAMPLE)?;
+        assert_eq!(result, 999999);
+        Ok(())
+    }
+}
