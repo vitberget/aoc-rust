@@ -23,7 +23,7 @@ fn common_letter(line: &str) -> char {
     let left_hash: HashSet<char> = left.chars().collect();
     let right_hash: HashSet<char> = right.chars().collect();
 
-    return *left_hash.intersection(&right_hash).next().unwrap();
+    *left_hash.intersection(&right_hash).next().unwrap()
 }
 
 pub(crate) fn score_letter(c: char) -> u32 {

@@ -60,8 +60,9 @@ impl Path {
 
 
     pub fn is_at_position(&self, position: &Position) -> bool {
-        self.path .last()
-            .map_or( false, |pos| pos.position == *position)
+        self.path
+            .last()
+            .is_some_and(|pos| pos.position == *position)
     }
 
     pub fn append(&self, position_with_direction: PositionWithDirection) -> Self {

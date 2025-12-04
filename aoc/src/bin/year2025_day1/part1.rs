@@ -5,7 +5,7 @@ pub fn part1(text: &str) -> anyhow::Result<usize> {
     for line in text.lines() {
         let num:isize = line[1..].parse()?;  
 
-        let direction: char = line.chars().nth(0).unwrap();
+        let direction: char = line.chars().next().unwrap();
 
         if direction == 'L' {
             position -= num;

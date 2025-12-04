@@ -6,9 +6,10 @@ use crate::position::Position;
 pub struct CharMap { data: HashMap<char, HashSet<Position>> }
 
 impl CharMap {
-    pub fn new() -> Self { Self { data: HashMap::new() } }
     pub fn get(&self, ch: &char) -> Option<&HashSet<Position>> { self.data.get(ch) }
 
+    #[cfg(test)]
+    fn new() -> Self { Self { data: HashMap::new() } }
     #[cfg(test)]
     fn insert(&mut self, ch: char, pos: HashSet<Position>) { self.data.insert(ch, pos);}
 }
