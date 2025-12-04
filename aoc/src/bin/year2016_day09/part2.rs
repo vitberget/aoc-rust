@@ -53,7 +53,6 @@ pub fn multi_decompress(text: &str) -> usize {
             in_right_marker = false;
             left_marker = 0;
             right_marker = 0;
-            in_right_marker = false;
         } else {
             // res.push(*ch);
             res += 1;

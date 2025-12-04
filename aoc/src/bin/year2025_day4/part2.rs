@@ -13,7 +13,7 @@ pub fn part2(text: &str) -> anyhow::Result<usize> {
 
     loop {
         let remove_these: Vec<Position> = remaining_paper_rolls.clone().into_iter()
-            .filter(|position| should_remove(&position, &remaining_paper_rolls))
+            .filter(|position| should_remove(position, &remaining_paper_rolls))
             .collect();
 
         if remove_these.is_empty() { break; }

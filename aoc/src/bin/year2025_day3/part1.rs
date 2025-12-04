@@ -4,7 +4,7 @@ use aoc_procmacros::aoc_profile;
 pub fn part1(text: &str) -> anyhow::Result<usize> {
     let result = text.lines()
         .map(|line| line.trim())
-        .map(|line| get_joltage(line))
+        .map(get_joltage)
         .map(|joltage| joltage.unwrap())
         .sum();
 
@@ -22,10 +22,8 @@ fn get_joltage(line: &str) -> anyhow::Result<usize> {
     let mut first_bank: Option<(usize, usize)> = None;
     let last_digit_dropped = &digits[0..digits.len()-1];
     for digit in (1_usize..=9).rev() {
-        if first_bank.is_none() {
-            if let Some(position) = last_digit_dropped.iter().position(|n| n==&digit) {
-                first_bank = Some((digit, position));
-            }
+        if first_bank.is_none() && let Some(position) = last_digit_dropped.iter().position(|n| n== &digit) {
+            first_bank = Some((digit, position));
         }
     }
 

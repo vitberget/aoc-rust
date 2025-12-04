@@ -8,25 +8,21 @@ pub fn part1(text: &str) -> anyhow::Result<usize> {
 }
 
 pub fn is_valid_triangle(line: &str) -> bool {
-    let mut iter = line.split_whitespace()
+    let mut iter = line
+        .split_whitespace()
         .flat_map(|word| word.parse::<usize>());
 
     let n1 = iter.next();
     let n2 = iter.next();
     let n3 = iter.next();
 
-    if let Some(n1) = n1 {
-        if let Some(n2) = n2 {
-            if let Some(n3) = n3 {
-                return 
-                    n1 + n2 > n3 &&
-                    n1 + n3 > n2 &&
-                    n2 + n3 > n1;
-            }
-        }
+    if let Some(n1) = n1 && let Some(n2) = n2 && let Some(n3) = n3 {
+            n1 + n2 > n3 &&
+            n1 + n3 > n2 &&
+            n2 + n3 > n1
+    } else {
+        false
     }
-
-    false
 }
 
 

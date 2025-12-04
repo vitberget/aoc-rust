@@ -6,9 +6,9 @@ pub fn part2(text: &str) -> anyhow::Result<String> {
 
     let mut result: [Option<char>; 8] = [None;8];
 
-    let mut five_zero_iter = (0..)
+    let five_zero_iter = (0..)
         .map(|n| format!("{text}{n}"))
-        .map(|str| md5::compute(str))
+        .map(md5::compute)
         .filter(|digest| digest[0] == 0 && digest[1] == 0 && digest[2] < 0x10);
 
     for fiver in five_zero_iter {

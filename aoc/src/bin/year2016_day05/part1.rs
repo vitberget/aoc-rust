@@ -5,7 +5,7 @@ pub fn part1(text: &str) -> anyhow::Result<String> {
 
     let result: String = (0..)
         .map(|n| format!("{text}{n}"))
-        .map(|str| md5::compute(str))
+        .map(md5::compute)
         .filter(|digest| digest[0] == 0 && digest[1] == 0 && digest[2] < 0x10)
         .take(8)
         .map(|digest| format!("{:016x}", digest))

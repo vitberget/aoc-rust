@@ -23,7 +23,7 @@ fn line_to_game(line: &str) -> anyhow::Result<Game> {
 fn line_to_id(line: Option<&str>) -> anyhow::Result<u32> {
     Ok(line.context("Missing id part")?
         .split(' ')
-        .last().context("Missing id part")?
+        .next_back().context("Missing id part")?
         .trim()
         .parse()?)
 }

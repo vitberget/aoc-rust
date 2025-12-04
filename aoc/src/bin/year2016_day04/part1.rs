@@ -13,10 +13,9 @@ pub fn part1(text: &str) -> anyhow::Result<usize> {
 
 pub fn is_real_room(line: &str) -> bool {
     let mut s = line.split("[");
-    if let Some(before) = s.next() {
-        if let Some(after) = s.next() {
-            return is_valid(before, after);
-        }   
+    if let Some(before) = s.next() 
+    && let Some(after)  = s.next() {
+        return is_valid(before, after);
     }
     false
 }
@@ -39,7 +38,7 @@ fn is_valid(name: &str, checksum: &str) -> bool {
     char_freqs.into_iter().take(5)
         .zip(checksum.chars().filter(|ch| ch.is_ascii_lowercase()))
         .all(|(a,b)| { a.1 == b
-    })
+        })
 }
 
 pub fn get_sector(line: &str) -> usize {

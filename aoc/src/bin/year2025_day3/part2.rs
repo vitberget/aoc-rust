@@ -4,7 +4,7 @@ use aoc_procmacros::aoc_profile;
 pub fn part2(text: &str) -> anyhow::Result<usize> {
     let result = text.lines()
         .map(|line| line.trim())
-        .map(|line| get_joltage_with_friction(line))
+        .map(get_joltage_with_friction)
         .map(|joltage| joltage.unwrap())
         .sum();
 
@@ -28,10 +28,9 @@ fn get_digit(digits: &[usize], digits_left: usize) -> usize {
     let mut bank: Option<(usize, usize)> = None;
     let last_digit_dropped = &digits[0..digits.len() - digits_left + 1];
     for digit in (1_usize..=9).rev() {
-        if bank.is_none() {
-            if let Some(position) = last_digit_dropped.iter().position(|n| n==&digit) {
-                bank = Some((digit, position));
-            }
+        if bank.is_none()
+        && let Some(position) = last_digit_dropped.iter().position(|n| n==&digit) {
+           bank = Some((digit, position));
         }
     }
 
