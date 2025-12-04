@@ -1,7 +1,8 @@
-use std::{collections::HashSet, sync::LazyLock};
+use std::collections::HashSet;
+use std::sync::LazyLock;
 
 use aoc_procmacros::aoc_profile;
-use aoc_utils::char_map::Position;
+use aoc_utils::position::Position;
 use regex::Regex;
 
 #[aoc_profile]

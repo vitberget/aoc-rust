@@ -1,9 +1,9 @@
 use aoc_procmacros::aoc_profile;
-use aoc_utils::char_map::text_to_char_map;
+use aoc_utils::char_map::CharMap;
 
 #[aoc_profile]
 pub fn part1(text: &str) -> anyhow::Result<usize> {
-    let map = text_to_char_map(text);
+    let map: CharMap = text.into();
     let paper_rolls = map.get(&'@').unwrap();
 
     let available = paper_rolls.iter()

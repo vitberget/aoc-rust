@@ -1,13 +1,15 @@
 use std::collections::{HashMap, HashSet};
 
 use aoc_procmacros::aoc_profile;
-use aoc_utils::char_map::{text_to_char_map, Position};
+use aoc_utils::char_map::CharMap;
+use aoc_utils::position::Position;
 
-use crate::part1::{get_first_path, structs::{Direction, Path}};
+use crate::part1::structs::{Direction, Path};
+use crate::part1::get_first_path;
 
 #[aoc_profile]
 pub fn part_2(text: &str) -> anyhow::Result<usize> {
-    let char_map = text_to_char_map(text);
+    let char_map: CharMap = text.into();
     let walls = char_map.get(&'#').unwrap();
     let end = char_map.get(&'E').unwrap().iter().next().unwrap();
 

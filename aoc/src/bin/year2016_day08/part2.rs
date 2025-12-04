@@ -1,7 +1,7 @@
 use std::collections::HashSet;
 
 use aoc_procmacros::aoc_profile;
-use aoc_utils::char_map::Position;
+use aoc_utils::position::Position;
 
 use crate::part1::{get_rect, get_rotate};
 

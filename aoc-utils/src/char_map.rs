@@ -1,84 +1,33 @@
-use std::ops::{Add, Mul, MulAssign, Sub};
 use std::collections::{HashMap, HashSet};
 
-#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
-pub struct Position {
-    pub x: isize,
-    pub y: isize,
+use crate::position::Position;
+
+#[derive(Debug, Clone, PartialEq)]
+pub struct CharMap { data: HashMap<char, HashSet<Position>> }
+
+impl CharMap {
+    pub fn new() -> Self { Self { data: HashMap::new() } }
+    pub fn get(&self, ch: &char) -> Option<&HashSet<Position>> { self.data.get(ch) }
+
+    #[cfg(test)]
+    fn insert(&mut self, ch: char, pos: HashSet<Position>) { self.data.insert(ch, pos);}
 }
 
-impl Add for Position {
-    type Output = Self;
+impl From<&str> for CharMap {
+    fn from(text: &str) -> Self {
+        let data: HashMap<char, HashSet<Position>> = text.lines().enumerate() 
+            .fold(HashMap::new(), |char_map, (y, line)| {
+                line.chars().enumerate()
+                    .fold(char_map, |mut char_map, (x, ch)| {
+                        char_map.entry(ch)
+                            .and_modify(|set| { set.insert(Position { x: x as isize, y: y as isize}); } )
+                            .or_insert(HashSet::from([Position{ x: x as isize, y: y as isize}]));
 
-    fn add(self, other: Self) -> Self::Output {
-        Self {
-            x: self.x + other.x,
-            y: self.y + other.y,
-        }
+                        char_map
+                    })
+            });
+        CharMap { data }
     }
-}
-impl Sub for Position {
-    type Output = Self;
-
-    fn sub(self, other: Self) -> Self::Output {
-        Self {
-            x: self.x - other.x,
-            y: self.y - other.y,
-        }
-    }
-}
-
-impl Mul<isize> for Position {
-    type Output = Self;
-
-    fn mul(self, other: isize) -> Self::Output {
-        Self {
-            x: self.x * other,
-            y: self.y * other
-        }
-    }
-}
-impl MulAssign<isize> for Position {
-    fn mul_assign(&mut self, rhs: isize) {
-        self.x *= rhs;
-        self.y *= rhs;
-    }
-}
-
-impl Position {
-    pub fn new(x:isize, y:isize) -> Self {
-        Self {x, y}
-    }
-    pub fn manhattan(&self) -> isize {
-        self.x.abs() + self.y.abs()
-    }
-    pub fn get_surrounding(&self) -> HashSet<Position> {
-        let mut result: HashSet<Position> = HashSet::new();
-        for x in -1..=1 {
-            for y in -1..=1 {
-                if x != 0 || y != 0 {
-                   result.insert(*self + Position { x, y });
-                }
-            }
-        }
-        result
-    }
-}
-
-pub type CharMap = HashMap<char, HashSet<Position>>;
-
-pub fn text_to_char_map(text: &str) -> CharMap {
-    text.lines().enumerate() 
-        .fold(CharMap::new(), |char_map, (y, line)| {
-            line.chars().enumerate()
-                .fold(char_map, |mut char_map, (x, ch)| {
-                    char_map.entry(ch)
-                        .and_modify(|set| { set.insert(Position { x: x as isize, y: y as isize}); } )
-                        .or_insert(HashSet::from([Position{ x: x as isize, y: y as isize}]));
-
-                    char_map
-                })
-        })
 }
 
 #[cfg(test)]
@@ -90,8 +39,9 @@ mod tests {
         const TEST_TEXT: &str = "a";
         let mut char_map: CharMap = CharMap::new();
         char_map.insert('a', HashSet::from([Position { x: 0, y: 0}]));
-
-        assert_eq!(text_to_char_map(TEST_TEXT), char_map);
+    
+        let test_parse: CharMap = TEST_TEXT.into();
+        assert_eq!(test_parse, char_map);
     }
 
     #[test]
@@ -103,7 +53,8 @@ mod tests {
         char_map.insert('c', HashSet::from([Position { x: 0, y: 1}]));
         char_map.insert('d', HashSet::from([Position { x: 1, y: 1}]));
 
-        assert_eq!(text_to_char_map(TEST_TEXT), char_map);
+        let test_parse: CharMap = TEST_TEXT.into();
+        assert_eq!(test_parse, char_map);
     }
 
     #[test]

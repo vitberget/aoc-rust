@@ -3,8 +3,8 @@ pub fn part2(text: &str) -> anyhow::Result<usize> {
     let mut score: usize = 0;
 
     for line in text.lines() {
-        let mut num:isize = line[1..].parse()?;  
-        let direction: char = line.chars().nth(0).unwrap();
+        let num:isize = line[1..].parse()?;  
+        let direction: char = line.chars().next().unwrap();
 
         for _ in 0..num {
             if direction == 'L' {

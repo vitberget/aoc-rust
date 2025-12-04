@@ -1,11 +1,12 @@
 use aoc_procmacros::aoc_profile;
-use aoc_utils::char_map::{text_to_char_map, Position};
+use aoc_utils::char_map::CharMap;
+use aoc_utils::position::Position;
 
 use crate::part1::find_race_track;
 
 #[aoc_profile]
 pub fn part_2(text: &str, filter_value: usize, manhattan: isize) -> anyhow::Result<usize> {
-    let char_map = text_to_char_map(text);
+    let char_map: CharMap = text.into();
 
     let race_track = find_race_track(&char_map);
 

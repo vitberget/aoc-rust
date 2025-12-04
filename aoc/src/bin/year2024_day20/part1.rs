@@ -1,11 +1,12 @@
 use std::collections::HashSet;
 
 use aoc_procmacros::aoc_profile;
-use aoc_utils::char_map::{text_to_char_map, CharMap, Position};
+use aoc_utils::position::Position;
+use aoc_utils::char_map::CharMap;
 
 #[aoc_profile]
 pub fn part_1(text: &str, filter_value: usize) -> anyhow::Result<usize> {
-    let char_map = text_to_char_map(text);
+    let char_map: CharMap = text.into();
 
     let race_track = find_race_track(&char_map);
 

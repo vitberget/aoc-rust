@@ -1,11 +1,12 @@
 use std::collections::HashSet;
 
 use aoc_procmacros::aoc_profile;
-use aoc_utils::char_map::{text_to_char_map, Position};
+use aoc_utils::position::Position;
+use aoc_utils::char_map::CharMap;
 
 #[aoc_profile]
 pub fn part2(text: &str) -> anyhow::Result<usize> {
-    let map = text_to_char_map(text);
+    let map: CharMap = text.into();
 
     let starting_paper_rolls = map.get(&'@').unwrap();
     let mut remaining_paper_rolls = starting_paper_rolls.clone();

@@ -1,14 +1,15 @@
 use std::collections::HashMap;
 
 use aoc_procmacros::aoc_profile;
-use aoc_utils::char_map::{text_to_char_map, CharMap, Position};
+use aoc_utils::char_map::CharMap;
+use aoc_utils::position::Position;
 use structs::{Direction, Path, PositionWithDirection};
 
 pub mod structs;
 
 #[aoc_profile]
 pub fn part_1(text: &str) -> anyhow::Result<usize> {
-    let char_map = text_to_char_map(text);
+    let char_map: CharMap = text.into();
     let walls = char_map.get(&'#').unwrap();
     let end = char_map.get(&'E').unwrap().iter().next().unwrap();
 

@@ -1,7 +1,7 @@
 use std::fmt::Debug;
 use std::collections::HashSet;
 
-use aoc_utils::char_map::Position;
+use aoc_utils::position::Position;
 
 #[derive(Clone)]
 pub struct Path {
