@@ -57,6 +57,7 @@ impl Position {
 }
 
 #[aoc_profile]
+#[allow(unreachable_code)]
 pub fn part2(text: &str) -> anyhow::Result<isize> {
     let mut visited: HashSet<(isize, isize)> = HashSet::new();
     visited.insert((0,0));

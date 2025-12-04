@@ -2,6 +2,7 @@ use anyhow::bail;
 use aoc_procmacros::aoc_profile;
 
 #[aoc_profile]
+#[allow(unreachable_code)]
 pub fn part2(text: &str) -> anyhow::Result<String> {
 
     let mut result: [Option<char>; 8] = [None;8];
