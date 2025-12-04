@@ -52,6 +52,17 @@ impl Position {
     pub fn manhattan(&self) -> isize {
         self.x.abs() + self.y.abs()
     }
+    pub fn get_surrounding(&self) -> HashSet<Position> {
+        let mut result: HashSet<Position> = HashSet::new();
+        for x in -1..=1 {
+            for y in -1..=1 {
+                if x != 0 || y != 0 {
+                   result.insert(*self + Position { x, y });
+                }
+            }
+        }
+        result
+    }
 }
 
 pub type CharMap = HashMap<char, HashSet<Position>>;
