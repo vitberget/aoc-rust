@@ -1,20 +1,46 @@
+use std::collections::HashSet;
+
 use aoc_procmacros::aoc_profile;
+use aoc_utils::char_map::{text_to_char_map, Position};
 
 #[aoc_profile]
 pub fn part2(text: &str) -> anyhow::Result<usize> {
-    Ok(0)
+    let map = text_to_char_map(text);
+
+    let starting_paper_rolls = map.get(&'@').unwrap();
+    let mut remaining_paper_rolls = starting_paper_rolls.clone();
+
+    loop {
+        let remove_these: Vec<Position> = remaining_paper_rolls.clone().into_iter()
+            .filter(|position| should_remove(&position, &remaining_paper_rolls))
+            .collect();
+
+        if remove_these.is_empty() { break; }
+
+        for pos in remove_these {
+            remaining_paper_rolls.remove(&pos);
+        }
+    }
+
+    Ok(starting_paper_rolls.len() - remaining_paper_rolls.len())
+}
+
+fn should_remove(pos: &Position, paper_rolls: &HashSet<Position>) -> bool {
+    let surrounding = pos.get_surrounding();
+    let intersecting = surrounding.intersection(paper_rolls);
+    let count = intersecting.count();
+    count < 4
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
-    #[ignore]
     #[test]
     fn test_example() -> anyhow::Result<()> {
-        const EXAMPLE: &str = "";
+        const EXAMPLE: &str = include_str!("example.txt");
         let result = part2(EXAMPLE)?;
-        assert_eq!(result, 999999);
+        assert_eq!(result, 43);
         Ok(())
     }
 }
