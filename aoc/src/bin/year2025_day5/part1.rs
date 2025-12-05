@@ -21,12 +21,8 @@ pub fn part1(text: &str) -> anyhow::Result<usize> {
     }
 
     Ok(ingridients.iter()
-        .filter(|id| contains_ingridient(id, &ranges))
+        .filter(|id| ranges.iter().any(|range| range.contains(id)))
         .count())
-}
-
-fn contains_ingridient(ingridient: &usize, ranges: &[RangeInclusive<usize>]) -> bool {
-    ranges.iter().any(|range| range.contains(ingridient)) 
 }
 
 #[cfg(test)]
