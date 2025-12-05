@@ -25,7 +25,7 @@ pub fn part1(text: &str) -> anyhow::Result<usize> {
         .count())
 }
 
-fn contains_ingridient(ingridient: &usize, ranges: &Vec<RangeInclusive<usize>>) -> bool {
+fn contains_ingridient(ingridient: &usize, ranges: &[RangeInclusive<usize>]) -> bool {
     ranges.iter().any(|range| range.contains(ingridient)) 
 }
 
