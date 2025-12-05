@@ -4,6 +4,14 @@ use aoc_procmacros::aoc_profile;
 
 #[aoc_profile]
 pub fn part1(text: &str) -> anyhow::Result<usize> {
+    let (ranges, ingridients) = parse(text)?;
+
+    Ok(ingridients.iter()
+        .filter(|id| ranges.iter().any(|range| range.contains(id)))
+        .count())
+}
+
+fn parse(text: &str) -> anyhow::Result<(Vec<RangeInclusive<usize>>, Vec<usize>)> {
     let mut ranges: Vec<RangeInclusive<usize>> = vec![];
     let mut ingridients: Vec<usize> = vec![];
 
@@ -19,10 +27,8 @@ pub fn part1(text: &str) -> anyhow::Result<usize> {
             ingridients.push(line.parse()?);
         }
     }
-
-    Ok(ingridients.iter()
-        .filter(|id| ranges.iter().any(|range| range.contains(id)))
-        .count())
+    
+    Ok((ranges, ingridients))
 }
 
 #[cfg(test)]

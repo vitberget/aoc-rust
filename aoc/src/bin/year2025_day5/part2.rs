@@ -4,6 +4,20 @@ use aoc_procmacros::aoc_profile;
 
 #[aoc_profile]
 pub fn part2(text: &str) -> anyhow::Result<usize> {
+    let mut ranges = parse(text)?;
+
+    while let Some((range_1, range_2, merged_range)) = get_a_merger(&ranges) {
+        ranges.remove(range_2);
+        ranges.remove(range_1);
+        ranges.push(merged_range);
+    } 
+
+    Ok(ranges.iter()
+        .map(|range| 1 + range.end() - range.start())
+        .sum())
+}
+
+fn parse(text: &str) -> anyhow::Result<Vec<RangeInclusive<usize>>> {
     let mut ranges: Vec<RangeInclusive<usize>> = vec![];
 
     for line in text.lines() {
@@ -17,15 +31,7 @@ pub fn part2(text: &str) -> anyhow::Result<usize> {
         }
     }
 
-    while let Some((range_1, range_2, merged_range)) = get_a_merger(&ranges) {
-        ranges.remove(range_2);
-        ranges.remove(range_1);
-        ranges.push(merged_range);
-    } 
-
-    Ok(ranges.iter()
-        .map(|range| 1 + range.end() - range.start())
-        .sum())
+    Ok(ranges)
 }
 
 fn get_a_merger(ranges: &[RangeInclusive<usize>]) -> Option<(usize,usize,RangeInclusive<usize>)> {
