@@ -3,7 +3,7 @@ use std::collections::HashMap;
 use aoc_procmacros::aoc_profile;
 
 #[derive(Debug)]
-enum Op {
+pub enum Op {
     Addition,
     Multiplication
 }
