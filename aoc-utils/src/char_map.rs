@@ -8,6 +8,28 @@ pub struct CharMap { data: HashMap<char, HashSet<Position>> }
 impl CharMap {
     pub fn get(&self, ch: &char) -> Option<&HashSet<Position>> { self.data.get(ch) }
 
+    pub fn get_max_x(&self) ->  isize {
+        self.data.values()
+            .map(|hash_set| hash_set.iter()
+                .map(|p| p.x)
+                .max()
+                .unwrap_or(0)
+            )
+            .max()
+            .unwrap_or(0)
+    }
+
+    pub fn get_max_y(&self) ->  isize {
+        self.data.values()
+            .map(|hash_set| hash_set.iter()
+                .map(|p| p.y)
+                .max()
+                .unwrap_or(0)
+            )
+            .max()
+            .unwrap_or(0)
+    }
+
     #[cfg(test)]
     fn new() -> Self { Self { data: HashMap::new() } }
     #[cfg(test)]
