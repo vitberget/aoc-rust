@@ -11,12 +11,12 @@ pub fn part1(text: &str, connections: usize) -> anyhow::Result<usize> {
     let junction_distances = calculate_distances(&circuits);
 
     for (junction_box_a, junction_box_b) in junction_distances.iter().take(connections) {
-        let circuit_a = find_circuit(&circuits, &junction_box_a);
-        let circuit_b = find_circuit(&circuits, &junction_box_b);
+        let circuit_a = find_circuit(&circuits, junction_box_a);
+        let circuit_b = find_circuit(&circuits, junction_box_b);
 
         if circuit_a != circuit_b {
             circuits.retain(|circuit| circuit!=&circuit_a && circuit!=&circuit_b);
-            let new_circuit: HashSet<JunctionBox> = circuit_a.union(&circuit_b).into_iter().map(|x| x.to_owned()).collect();
+            let new_circuit: HashSet<JunctionBox> = circuit_a.union(&circuit_b).map(|x| x.to_owned()).collect();
 
             circuits.push(new_circuit.to_owned());
         }

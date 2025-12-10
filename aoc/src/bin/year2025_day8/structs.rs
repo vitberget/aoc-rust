@@ -23,7 +23,7 @@ impl JunctionBox {
     }
     pub fn parse_text(text: &str) -> Circuits {
         text.lines()
-            .map(|line| Self::from(line))
+            .map(Self::from)
             .map(|coord| HashSet::from([coord]))
             .collect()
     }
@@ -53,10 +53,10 @@ pub fn calculate_distances(circuits: &Circuits) -> Vec<(JunctionBox, JunctionBox
     let mut distance_map: Vec<(usize, (JunctionBox, JunctionBox ))> = vec![];
     for a in 0..count {
         let circuit_a = junction_boxes[a];
-        for b in (a+1)..count {
-            let circuit_b = junction_boxes[b];
+        for circuit_b in junction_boxes.iter().take(count).skip(a+1) {
+            // let circuit_b = junction_boxes[b];
             let distance = JunctionBox::distance_squared(circuit_a, circuit_b);
-            let pair: (JunctionBox, JunctionBox) = (*circuit_a, *circuit_b);
+            let pair: (JunctionBox, JunctionBox) = (*circuit_a, **circuit_b);
             distance_map.push((distance, pair));
         }
     } 
