@@ -1,5 +1,6 @@
 use aoc_procmacros::aoc_profile;
 
+#[derive(Clone, Debug)]
 pub struct Coordinate {
     pub x: usize,
     pub y: usize
